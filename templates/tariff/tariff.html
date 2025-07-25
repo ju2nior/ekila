@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- SECTION TARIFS -->
+<section id="tarif-section">
+    <div>
+        <!-- Titre principal -->
+        <h1>Découvrez nos Offres</h1>
+        <p class="subtitle">
+            MNLV AUDIO connecte votre marque à nos auditeurs fidèles ! Maximisez votre
+            visibilité avec des options adaptées : courtes annonces, packs exclusifs et sponsoring d'émissions.
+            Les opportunités sont illimitées !
+        </p>
+
+        <!-- Panel des Offres -->
+        <div class="container">
+            <div class="row justify-content-center g-4">
+                <!-- Carte 1 -->
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="card">
+                        <h3>Spot Publicitaire</h3>
+                        <p class="price">5000 Fcfa / Spot</p>
+                        <ul>
+                            <li>Diffusion aux heures de plus forte audience.</li>
+                            <li>Contenu publicitaire optimisé (30 à 60 secondes).</li>
+                            <li>Ciblez une clientèle locale ou internationale.</li>
+                        </ul>
+                        <a href="{% url 'tarif:sign_up' %}" class="btn-outline">Commander</a>
+                    </div>
+                </div>
+
+                <!-- Best Offer -->
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="card best-offer">
+                        <span class="offer-badge">Meilleure Offre</span>
+                        <h3>Pack Premium</h3>
+                        <p class="price">12,000 Fcfa / Mois</p>
+                        <ul>
+                            <li>Analyse complète de vos performances publicitaires.</li>
+                            <li>Diffusion optimisée sur plusieurs médias.</li>
+                            <li>Accessibilité garantie à un large public cible.</li>
+                        </ul>
+                        <a href="{% url 'tarif:sign_in' %}" class="btn-special">Choisissez ce plan</a>
+                    </div>
+                </div>
+
+                <!-- Carte 3 -->
+                <div class="col-lg-4 col-md-6 d-flex align-items-stretch">
+                    <div class="card">
+                        <h3>Sponsoring d'Émissions</h3>
+                        <p class="price">5000 Fcfa / Émission</p>
+                        <ul>
+                            <li>Mention spéciale en direct par nos présentateurs.</li>
+                            <li>Augmentez votre visibilité auprès d’un public engagé.</li>
+                            <li>Associez votre marque à des contenus de qualité.</li>
+                        </ul>
+                        <a href="{% url 'tarif:sign_up' %}" class="btn-outline">Sponsoriser</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

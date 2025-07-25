@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+        <div class="featured-post-area">
+            <div class="container">
+                <div class="row" style="margin-top:70px;">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="section-heading">
+                            <h6>Détails sur l'émission</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-10%">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="single-blog-post featured-post">
+                            <div class="post-thumb">
+                                <img src="{{emission.image.url}}"  width="1100" height="500"  style="margin-top:70px;">
+                            </div>
+                            <div class="post-data">
+                                <h2 style="font-family: 'Times New Roman', Times, serif;">
+                                    <a href="#"> {{emission.titre}} presenté(s) par {{ emission.presentateur  }}</a>
+                                </h2>
+                                <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;font-family: 'Times New Roman', Times, serif;">
+                                    {{ emission.description | safe | linebreaks  }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if emission.lien_video != '' %}
+                <div class="single-video-post" style="margin-bottom:10px;">
+                    <div class="videobtn">
+                        <iframe width="400"
+                                height="600"
+                                src="{{ emission.lien_video }}?autoplay=1&rel=0"
+                                title="YouTube video player"
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
+                </div>
+            {% endif %}
+            </div>
+        </div>
+
+
+    {% endblock %}

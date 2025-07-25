@@ -1,0 +1,364 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+    body {
+        background-color: white;
+    }
+    .page-link {
+        background-color: black;
+        color: white;
+    }
+    .card {
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.3s ease;
+        margin-bottom: 20px;
+        height: 100%;
+    }
+    .card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+    .card-img-top {
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+        height: 200px;
+        object-fit: cover;
+        width: 100%;
+    }
+    .card-body {
+        padding: 15px;
+    }
+    .card-title {
+        font-weight: 600;
+        color: #333;
+        font-size: 1.1rem;
+        margin-bottom: 0.5rem;
+    }
+    .card-text {
+        color: #6c757d;
+        font-size: 0.9rem;
+    }
+    .section-title {
+        color: #040458;
+        margin-bottom: 30px;
+        font-weight: bold;
+        font-size: 1.8rem;
+    }
+    .section-subtitle {
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-size: 1.5rem;
+    }
+    .pagination {
+        justify-content: center;
+        margin-top: 30px;
+    }
+    .page-link {
+        color: #2c3e50;
+        border: 1px solid #dee2e6;
+    }
+    .page-item.active .page-link {
+        background-color: #2c3e50;
+        border-color: #2c3e50;
+    }
+    .page-link:hover {
+        color: #2c3e50;
+        background-color: #f8f9fa;
+    }
+    .content-section {
+        padding: 3rem 0;
+    }
+    .btn-primary {
+        background-color: #040458;
+        border-color: #040458;
+    }
+    .btn-primary:hover {
+        background-color: #030347;
+        border-color: #030347;
+    }
+    .fixed-dimensions {
+        height: 200px;
+        object-fit: cover;
+    }
+</style>
+
+
+<section class="content-section py-4" id="content7-11">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h2 class="section-title text-center" style="color: #040458; font-weight: bold; font-size: 2rem;">
+                    Toute l'actualité par thème
+                </h2>
+                <div class="title-divider mx-auto" style="width: 100px; height: 3px; background-color: #040458; margin-bottom: 2rem;"></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Africa Section -->
+{% if paginated_data.actu_afrique %}
+<section class="content-section py-3" id="content4-1z">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="section-subtitle text-center" style="color: #040458; font-weight: bold; font-size: 1.5rem;">
+                    Afrique
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for actu in paginated_data.actu_afrique %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100">
+                    {% if actu.image %}
+                    <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}">
+                        <img src="{{ actu.image.url }}" class="card-img-top" alt="{{ actu.title }}" loading="lazy">
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}" class="text-decoration-none">
+                            <h5 class="card-title">{{ actu.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ actu.text|truncatechars:100|striptags }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if paginated_data.actu_afrique.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_afrique.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Page {{ paginated_data.actu_afrique.number }} sur {{ paginated_data.actu_afrique.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if paginated_data.actu_afrique.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_afrique.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Europe Section -->
+{% if paginated_data.actu_europe %}
+<section class="content-section py-3" id="content4-20">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="section-subtitle text-center" style="color: #040458; font-weight: bold; font-size: 1.5rem;">
+                    Europe
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for actu in paginated_data.actu_europe %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100">
+                    {% if actu.image %}
+                    <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}">
+                        <img src="{{ actu.image.url }}" class="card-img-top" alt="{{ actu.title }}" loading="lazy">
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}" class="text-decoration-none">
+                            <h5 class="card-title">{{ actu.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ actu.text|truncatechars:100|striptags }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if paginated_data.actu_europe.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_europe.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Page {{ paginated_data.actu_europe.number }} sur {{ paginated_data.actu_europe.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if paginated_data.actu_europe.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_europe.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- Social Section -->
+{% if paginated_data.actu_social %}
+<section class="content-section py-3" id="content4-25">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="section-subtitle text-center" style="color: #040458; font-weight: bold; font-size: 1.5rem;">
+                    Social
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for actu in paginated_data.actu_social %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100">
+                    {% if actu.image %}
+                    <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}">
+                        <img src="{{ actu.image.url }}" class="card-img-top" alt="{{ actu.title }}" loading="lazy">
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}" class="text-decoration-none">
+                            <h5 class="card-title">{{ actu.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ actu.text|truncatechars:100|striptags }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if paginated_data.actu_social.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_social.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Page {{ paginated_data.actu_social.number }} sur {{ paginated_data.actu_social.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if paginated_data.actu_social.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_social.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+<!-- World Section -->
+{% if paginated_data.actu_monde %}
+<section class="content-section py-3" id="content4-26">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12 text-center">
+                <h1 class="section-subtitle text-center" style="color: #040458; font-weight: bold; font-size: 1.5rem;">
+                    Reste du monde
+                </h1>
+            </div>
+        </div>
+
+        <div class="row">
+            {% for actu in paginated_data.actu_monde %}
+            <div class="col-12 col-sm-6 col-md-4 col-lg-3 mb-4">
+                <div class="card h-100">
+                    {% if actu.image %}
+                    <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}">
+                        <img src="{{ actu.image.url }}" class="card-img-top" alt="{{ actu.title }}" loading="lazy">
+                    </a>
+                    {% endif %}
+                    <div class="card-body">
+                        <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}" class="text-decoration-none">
+                            <h5 class="card-title">{{ actu.title }}</h5>
+                        </a>
+                        <p class="card-text">{{ actu.text|truncatechars:100|striptags }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="row">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination">
+                        {% if paginated_data.actu_monde.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_monde.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link">
+                                Page {{ paginated_data.actu_monde.number }} sur {{ paginated_data.actu_monde.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if paginated_data.actu_monde.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ paginated_data.actu_monde.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+{% endblock %}

@@ -1,0 +1,24 @@
+
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <div class="contact-area section-padding-0-80">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12">
+                    <div class="single-blog-post style-2">
+                        <div class="post-data">
+                            <a href="#" style="font-size:60px; margin-top:60px;" class="post-catagory">COOKIES</a>
+                                <p class="mb-4" style="text-indent:45px; font-size:80px;margin-top:15px;">
+                                    {{cookie.cookie | linebreaks }}
+                                </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

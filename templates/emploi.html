@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<style>
+
+    .clignote {
+    color:green;
+    animation: clignote 1s linear infinite;
+    }
+    @keyframes clignote {
+    50% { opacity: 0; }
+    }
+
+</style>
+
+<section class="content7 cid-sKTczl36PL" id="content7-1p">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <blockquote>
+                <h5 class="mbr-section-title mbr-fonts-style mb-2 display-2"><strong>Nos offres d'emploi</strong></h5>
+                <p class="mbr-text mbr-fonts-style display-4"></p></blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKTiXGPhnh" id="content4-2c">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKThDvlxdR" id="content4-28">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>Top offres</strong></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="gallery2 cid-sKTdxcIWMy" id="gallery2-1w">
+    <div class="container">
+        <div class="row">
+        {% for e in emploi %}
+            <div class="item features-image сol-12 col-md-12 col-lg-12">
+               <div class="card">
+               {% if e.urgent %}
+                    <div class="card-header"><span class="clignote">urgent!</span></div>
+                {% else %}
+                    <div class="card-header"></div>
+                {% endif %}
+
+                    <div class="card-body">
+                        <h3 class="card-title"><a href="{% url 'job' e.id %}"> {{ e.titre  }} </a></h3>
+                        <p class="card-text">{{ e.description| slice:"100" | safe }}...</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 col-md-12 col-lg-12 align-items-center">
+                {% if emploi.has_other_pages %}
+                    <ul class='pagination'>
+                        {% if   emploi.has_previous %}
+                            <li class="page-item" >
+                                <a class="page-link" href="?page={{  emploi.previous_page_number }}"></a>
+                            </li>
+                        {% else %}
+                            <li class='disabled page-item'>
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        {% endif %}
+
+                        {% for r in  emploi.paginator.page_range %}
+                            {% if  emploi.number == r %}
+                                <li class='active page-item'>
+                                    <span class="page-link">{{r}} <span class='sr-only'>(current)</span></span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{r}}">{{r}}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if   emploi.has_next %}
+                             <li class="page-item">
+                                <a class="page-link" href="?page={{  emploi.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li  class='disabled page-item'>
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        {% endif %}
+                {% endif %}
+                    </ul>
+            </div>
+        </div>
+        <div class = "row mt-4">
+            <div class="col-12 col-md-12 col-lg-12">
+            {%if pubs %}
+                <p style="text-align: center; margin-top:120px;font-size:large;"><strong>AFFICHE</strong></p>
+                {% for fichier in  pubs %}
+                    <div id="buttons" class="bpdf_wrapper" style="margin-bottom:10px;">
+                        <a class="btn btn-primary display-4" href="{{fichier.fichier.url}}">Voir en plein écran</a><br />
+                        <iframe scrolling="auto" frameborder="0" width="21918.75%" height="2480" loading="lazy" src="{{fichier.fichier.url}}">
+                            Votre navigateur ne supporte pas ce média
+                        </iframe>
+                    </div>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

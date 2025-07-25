@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+    <section class="form5 cid-sKTlntgVIA" id="form5-2e">
+        <div class="container">
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form"
+                     style="font-size: x-large;
+                            font-weight: bold;"
+                     data-form-type="formoid">
+                    <p>
+                        Merci  chers auditeurs pour votre soutien,
+                        cliquez sur ce bouton ou scannez le QR code pour faire un don.
+                    </p>
+                        {% if message %}
+                            <p>
+                                {{ message.texte }}
+                            </p>
+                        {% endif %}
+                </div>
+            </div>
+            <div class="row justify-content-center mt-4" style="margin-left: -120px;">
+                <div id="donate-button-container">
+                    <div class="row">
+                        <div class="col-md-8 col-lg-8" id="donate-button" style="width:300%;"></div>
+                        <div class="col-md-4 col-lg-4">
+                            <img style="width:200%;" src="{% static 'images/QRCode_paypal.png' %}" alt="Paypal QrCode." />
+                        </div>
+                    </div>
+
+                    <script>
+                        var hostedButton = "{{ hosted_button_id }}";
+                        PayPal.Donation.Button({
+                        env:'production',
+                        hosted_button_id: hostedButton,
+                        image: {
+                            src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+                            alt:'Donate with PayPal button',
+                            title:'PayPal - The safer, easier way to pay online!',
+                        },
+                        style: {
+                            height:  40,
+                            color:  'blue',
+                            shape:  'pill',
+                            label:  'pay'
+                        }
+                    }).render('#donate-button');
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

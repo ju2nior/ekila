@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+
+       <div class="popular-news-area section-padding-20-20" style="amrgin-top:20px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-12">
+                        <div class="single-blog-post style-2">
+                                    <div class="post-thumb">
+                                        <img src="{{ poadcast.image.url }}" alt="no image" width="1200" height="500"  style="margin-top:70px;" class="rounded img-fluid">
+                                    </div>
+                                    <div class="post-data">
+                                        <a href="#" class="post-catagory">{{ poadcast.titre }}</a>
+                                        <div class="col-12 col-md-12">
+                                            {% if poadcast.audio.url %}
+                                            <audio controls style="width : 100%; margin-bottom:10px;">
+                                                <source src="{{  poadcast.audio.url }}">
+                                            </audio>
+                                            {% endif %}
+
+                                            {% if poadcast.url_audio %}
+                                                <iframe width="200" height="200" src="{{  poadcast.url_audio }}" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                <div>
+                            </div>
+                            </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

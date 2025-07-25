@@ -1,0 +1,3 @@
+[tool.ruff]
+select = ["F"]
+per-file-ignores = { "settings.py" = ["F403"] }

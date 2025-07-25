@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block title %}Inscription - Sign Up tarif{% endblock %}
+
+{% block content %}
+
+
+<!-- Bannière -->
+<div class="banner">
+    Bienvenue sur la page d'inscription de tarif !
+</div>
+
+<!-- Conteneur principal -->
+<div class="form-container">
+    <!-- Illustration à gauche -->
+    <div class="illustration">
+        <img src="/static/images/Illustration.webp" alt="Illustration attrayante">
+    </div>
+
+    <!-- Formulaire au centre -->
+    <div id="sign_tarif">
+        <form method="POST" action="{% url 'tarif:sign_up' %}">
+            {% csrf_token %}
+            <!-- Titre du formulaire avec nouveau style -->
+            <h2 class="form-title">Créez votre compte tarif</h2>
+            <p style="text-align: center; margin-bottom: 20px; font-size: 0.95rem; color: #666;">
+                Rejoignez-nous et commencez à promouvoir vos offres dans votre espace publicitaire.
+            </p>
+
+            {% if messages %}
+            <div class="alert-container">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {% if "error" in message.tags %}
+                        <i class="fa fa-exclamation-circle"></i>
+                    {% elif "success" in message.tags %}
+                        <i class="fa fa-check-circle"></i>
+                    {% elif "info" in message.tags %}
+                        <i class="fa fa-info-circle"></i>
+                    {% elif "warning" in message.tags %}
+                        <i class="fa fa-exclamation-triangle"></i>
+                    {% endif %}
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+
+            <div class="input-group">
+                <i class="fa fa-user"></i>
+                <label for="name">Nom complet</label>
+                <input type="text" id="name" name="name" placeholder="Entrez votre nom" required>
+            </div>
+            <div class="input-group">
+                <i class="fa fa-envelope"></i>
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Entrez votre adresse email" required>
+            </div>
+            <div class="input-group">
+                <i class="fa fa-lock"></i>
+                <label for="password">Mot de passe</label>
+                <input type="password" id="password" name="password" placeholder="Choisissez un mot de passe" required>
+            </div>
+            <div class="input-group">
+                <i class="fa fa-lock"></i>
+                <label for="confirm_password">Confirmez le mot de passe</label>
+                <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirmez votre mot de passe" required>
+            </div>
+            <button class="text-center" type="submit">S'inscrire</button>
+
+            <!-- Texte sous le bouton -->
+            <div class="existing-account">
+                Vous avez déjà un compte ? <a href="{% url 'tarif:sign_in' %}">Connectez-vous ici</a>
+            </div>
+        </form>
+    </div>
+
+    <!-- Section "Pourquoi rejoindre tarif ?" à droite -->
+    <div class="content">
+        <h2>Pourquoi rejoindre tarif ?</h2>
+        <ul>
+            <li><i class="fa fa-check-circle"></i> Publiez vos annonces rapidement et facilement.</li>
+            <li><i class="fa fa-check-circle"></i> Accédez à un large éventail d'opportunités.</li>
+            <li><i class="fa fa-check-circle"></i> Recevez des recommandations personnalisées.</li>
+            <li><i class="fa fa-check-circle"></i> Gagnez en visibilité sur votre marché.</li>
+            <li><i class="fa fa-check-circle"></i> Gestion intuitive de votre espace utilisateur.</li>
+        </ul>
+    </div>
+</div>
+{% endblock %}

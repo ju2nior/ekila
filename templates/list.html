@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container-fluid">
+    <div class="col-md-10 offset-md-1 mt-5">
+        <div class="jumbotron">
+                <h1 class="display-4">Liste des radio</h1>
+                <hr class='my-4'>
+                <table class="table table-borderless">
+                    <thead class="border-bottom font-weight-blod">
+                        <tr>
+                            <td>nom</td>
+                            <td>image</td>
+                            <td>flux</td>
+                            <td>description</td>
+                            <td>
+                                <a href="{%url 'radio_create' %}" class="btn btn-success">Add new</a>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for prog in  radio_list %}
+                            <tr>
+                                <td>{{ prog.nom }}</td>
+                                <td>{{ prog.image }}</td>
+                                <td>{{ prog.flux}}</td>
+                                <td>{{ prog.description }}</td>
+                                <td>
+                                    <a href="{% url 'update_create' prog.id %}" class="btn text-secondary px-0">
+                                        <i class="far fa-edit fa-lg"></i>
+                                    </a>
+                                    <form action="{% url 'delete_radio' prog.id %}" method='post' class='d-inline'>
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn">
+                                            <i class="far fa-trash-alt fa-lg text-danger float-right"></i>
+                                        </button>
+                                    </form>
+                                    <form action="#" method='post' class='d-inline'>
+                                        {% csrf_token %}
+                                          <button type="submit" class="btn btn-default">post</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

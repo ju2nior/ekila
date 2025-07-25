@@ -1,0 +1,31 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="featured-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <p style="text-align: center; margin-top:120px;font-size:large;"><strong>REGIE PUBLICITAIRE</strong></p>
+                    <h3 style="font-size: 1.2em; font-family: 'Times New Roman', Times, serif;">
+                        Pour toute demande de devis, contactez le <strong> +33 7 63 13 55 89 </strong> ou faites une demande par mail à <strong> <a href="mailto:regie@ekilaradio.fr">regie@ekilaradio.fr</a></strong>
+                    </h3>
+
+                    {%if fichier %}
+                    {% for fichier in fichier %}
+                        <div id="buttons" class="bpdf_wrapper" style="margin-bottom:10px;">
+                            <a class="btn btn-primary display-4" target="_blank" href="{{fichier.fichier.url}}">Voir en plein écran</a><br />
+                            <!--<iframe loading="lazy" style="width:100%;" src="{{fichier.fichier.url}}"></iframe>-->
+                            <img src="{{fichier.fichier.url}}" style="width:100%; margin-bottom:25px;">
+                        </div>
+                    {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div
+        </div>
+    </div>
+
+{% endblock %}

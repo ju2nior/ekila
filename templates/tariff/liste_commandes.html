@@ -1,0 +1,80 @@
+{% extends 'tarif/dashboard_base.html' %}
+
+{% block dashboard_content %}
+
+<div id="liste_command" class="container mt-5">
+    <h2>Liste des Commandes</h2>
+    {% if messages %}
+            <div class="alert-container">
+                {% for message in messages %}
+                <div class="alert {{ message.tags }}">
+                    {% if "error" in message.tags %}
+                        <i class="fa fa-exclamation-circle"></i>
+                    {% elif "success" in message.tags %}
+                        <i class="fa fa-check-circle"></i>
+                    {% elif "info" in message.tags %}
+                        <i class="fa fa-info-circle"></i>
+                    {% elif "warning" in message.tags %}
+                        <i class="fa fa-exclamation-triangle"></i>
+                    {% endif %}
+                    {{ message }}
+                </div>
+                {% endfor %}
+            </div>
+            {% endif %}
+    <div class="table-responsive" style="max-height: 400px; overflow-y: auto;">
+        <table class="table table-bordered mt-3">
+            <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>Client</th>
+                    <th>Type de Paiement</th>
+                    <th>Montant Total (FCFA)</th>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Confirmation de Paiement</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for commande in commandes %}
+                <tr>
+                    <td>{{ commande.id_commande }}</td>
+                    <td>
+                        {% if commande.nom_client %}
+                            {{ commande.nom_client }}
+                        {% else %}
+                            {{ commande.nom_societe }}
+                        {% endif %}
+                    </td>
+                    <td>{{ commande.mode_paiement }}</td>
+                    <td>{{ commande.montant_total|default:"-" }}</td>
+                    <td>
+                        {% if commande.statut %}
+                            <span class="badge badge-success">Payée</span>
+                        {% else %}
+                            <span class="badge badge-danger">Non Payée</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ commande.date_commande|date:"d/m/Y H:i" }}</td>
+                    <td>
+                        {% if commande.paiement_confirme %}
+                            <span class="badge badge-success">Confirmé</span>
+                        {% else %}
+                            <span class="badge badge-warning">En attente</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{% url 'detail_commande' commande.id %}" class="btn btn-primary btn-sm">Détails</a>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">Aucune commande trouvée.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

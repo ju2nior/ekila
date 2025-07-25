@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+        <div class="featured-post-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="section-heading">
+                            <h6>Détails sur l'édito</h6>
+                        </div>
+                        <div class="row" style="margin-top:-10%">
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="single-blog-post featured-post">
+                                    <div class="post-thumb">
+                                        <a href="#"><img src="{{ edito.image.url }}" style="width: 150%; height:25%;"></a>
+                                    </div>
+                                    <div class="post-data">
+                                        <h2 style="font-family: 'Times New Roman', Times, serif;"> {{ edito.titre}} {{ emission.presentateur  }} </h2>
+                                        <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;font-family: 'Times New Roman', Times, serif;">
+                                            {{ edito.description_complete | safe | linebreaks  }}
+                                        </p>
+                                        {% if edito.fichier_audio_complet %}
+                                        <div class="col-12 col-md-12">
+                                            <audio controls style="width:100%;margin-bottom:12px;">
+                                                <source src="{{ edito.fichier_audio_complet.url }}">
+                                            </audio>
+                                        </div>
+                                        {% endif %}
+
+                                        {% if edito.url_de_l_audio %}
+                                            <div class="col-12 col-md-12">
+                                                <iframe width="500" height="200" src="{{ edito.url_de_l_audio }}" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endblock %}

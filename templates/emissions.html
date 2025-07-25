@@ -1,0 +1,153 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="content7 cid-sKTczl36PL" id="content7-1p">
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <blockquote>
+                <h5 class="mbr-section-title mbr-fonts-style mb-2 display-2"><strong>Revivez nos dernières émissions</strong></h5>
+                <p class="mbr-text mbr-fonts-style display-4"></p></blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKTiXGPhnh" id="content4-2c">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKThDvlxdR" id="content4-28">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>Nos Émissions en Vidéos</strong></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery2 cid-sKTdxcIWMy" id="gallery2-1w">
+    <div class="container">
+        <div class="row mt-4">
+        {% for em in page_emission %}
+            <div class="item features-image сol-12 col-md-6 col-lg-3">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <a href="{% url 'sous-emission' em.id %}">
+                            <img src="{{ em.image.url }}" alt="no image">
+                        </a>
+                    </div>
+                     <h4 style="margin-top:8px; text-align:center;">
+                        <a class="text-center" href="{% url 'sous-emission' em.id %}"> {{ em.titre }} </a>
+                    </h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-md-12 col-lg-12 align-items-center">
+                    <div class="pagination">
+                        <span class="step-links">
+                            {% if page_emission.has_previous %}
+                                <a href="?page=1">&laquo; premier</a>
+                                <a href="?page={{ page_emission.previous_page_number }}">précédent</a>
+                            {% endif %}
+
+                            <span class="current">
+                                {{ page_emission.number }} / {{ page_emission.paginator.num_pages }}.
+                            </span>
+
+                            {% if page_emission.has_next %}
+                                <a href="?page={{ page_emission.next_page_number }}">suivant</a>
+                                <a href="?page={{ page_emission.paginator.num_pages }}">dernier &raquo;</a>
+                            {% endif %}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+</section>
+
+<section class="content4 cid-sKTidCutny" id="content4-2b">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2">
+                    <strong>Nos Podcasts en Audios</strong></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery2 cid-sKTdzIw7OF" id="gallery2-1x">
+    <div class="container">
+        <div class="row mt-4">
+        {% for p in  page_poad %}
+            <div class="item features-image сol-12 col-md-6 col-lg-3">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <a href="{% url 'musique' p.id %}">
+                            <img src="{{ p.image.url }}" alt="no image">
+                        </a>
+                    </div>
+                    <h4 style="margin-top:8px;">
+                        <a class="text-center" href="{% url 'musique' p.id %}"> {{ p.titre }}</a>
+                    </h4>
+                </div>
+            </div>
+        {% endfor %}
+
+        {% for edito in edito %}
+            <div class="item features-image сol-12 col-md-6 col-lg-3">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <a href="{% url 'edito' edito.id %}">
+                            <img src="{{ edito.image.url }}" alt="no image">
+                        </a>
+                    </div>
+                    <h4 style="margin-top:8px;">
+                        <a class="text-center" href="{% url 'edito' edito.id %}"> {{ edito.titre }}</a>
+                    </h4>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-12 col-md-12 col-lg-12 align-items-center">
+                <div class="pagination" style="margin-bottom:15px;">
+                    <span class="step-links">
+                        {% if page_poad.has_previous %}
+                            <a href="?page=1">&laquo; premier</a>
+                            <a href="?page={{ page_poad.previous_page_number }}">précédent</a>
+                        {% endif %}
+
+                        <span class="current">
+                            {{ page_poad.number }} / {{ page_poad.paginator.num_pages }}.
+                        </span>
+
+                        {% if page_poad.has_next %}
+                            <a href="?page={{ page_poad.next_page_number }}">suivant</a>
+                            <a href="?page={{ page_poad.paginator.num_pages }}">dernier &raquo;</a>
+                        {% endif %}
+                    </span>
+                </div>
+            </div>
+        </div>
+</section>
+
+
+
+{% endblock %}

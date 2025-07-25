@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+ <div class="popular-news-area section-padding-20-20" style="margin-top:20px;">
+    <div class="container">
+        <div class="row" style="margin-top:70px;">
+            <div class="col-12 col-md-12 col-lg-12">
+                <div class="section-heading">
+                    <h6>Détails sur l'artiste</h6>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-12">
+                <div class="single-blog-post style-2">
+                    <div class="post-thumb">
+                        {% if artiste.photo %}
+                            <img src="{{ artiste.photo.url }}" alt="no image" width="2400" height="1600"  style="margin-top:-50PX;" class="rounded img-fluid">
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+             <div class="col-12 col-lg-12">
+                <div class="text-wrapper">
+                    <div class="post-data">
+                        <h2>
+                            <a href="#" style="font-family: 'Times New Roman', Times, serif;">{{ artiste.nom }}</a>
+                        </h2>
+
+                        <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;">
+                        <h4 style="font-family: 'Times New Roman', Times, serif;"> <strong> Carte d'identité </strong></h4>
+                        <p style="font-family: 'Times New Roman', Times, serif;"> <strong>Nom :</strong> {{ artiste.nom }}</p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Nom de naissance :</strong> {{ artiste.nom_naissance }} </p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Activité: </strong>{{ artiste.activite | safe | linebreaks }}</p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Genre :</strong> {{ artiste.genre }} </p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Naissance : </strong>{{ artiste.naissance|date:'d/m/Y' }} </p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Lieu :</strong> {{ artiste.lieu }} </p>
+                        <p style="font-family: 'Times New Roman', Times, serif;"><strong>Nationalite :</strong> {{ artiste.nationalite }} </p> <br>
+
+                        <h4> <strong>Parcours et carrière</strong> </h4>
+                        <p style="font-family: 'Times New Roman', Times, serif;">{{ artiste.description | safe | linebreaks  }}</p> <br>
+
+                        <h4> <strong>Discographie</strong></h4>
+                        <p style="font-family: 'Times New Roman', Times, serif;">{{artiste.discographie | safe | linebreaks  }}</p>
+                            {% if artiste.url %}
+                                <h4>Plus d'info sur <a target="_blank" href="{{artiste.url}}"> {{ artiste.url }} </a> </h4>
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

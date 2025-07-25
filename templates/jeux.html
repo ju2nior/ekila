@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+
+{% block title %}
+    {% trans 'Euro Millions et Courses Hippiques' %}
+{% endblock %}
+
+{% block content %}
+
+<section id="euro-millions">
+    <!-- Titre principal -->
+    <div class="container my-4">
+        <h1>{% trans 'JEUX' %}</h1>
+    </div>
+
+    <!-- Section Euro Millions -->
+    <div class="section container">
+        <div class="row">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                <a href=" ">
+                    <img
+                        src="{% static 'images/emm.jpg' %}"
+                        alt="{% trans 'Image promotion Euro Millions Monde' %}"
+                        class="img-fluid"
+                    >
+                </a>
+            </div>
+            <div class="col-12 col-lg-8">
+                <h2 class="title">{% trans 'Euro Millions Monde' %}</h2>
+                <p class="description">
+                    {% blocktrans %}
+                    Rejoignez l’aventure Euro Millions Monde ! Chaque mardi et vendredi, tentez de devenir millionnaire en participant totalement gratuitement au plus grand jeu de tirage en Europe.
+                    {% endblocktrans %}
+                </p>
+                <p class="description">
+                    {% blocktrans %}
+                    Inscrivez-vous dès maintenant ! Envoyez-nous un e-mail avec vos coordonnées à <a href="mailto:emm@ekilaradio.fr" class="email-link"><strong>emm@ekilaradio.fr</strong></a> avant 13h GMT et validez votre participation.
+                    {% endblocktrans %}
+                </p>
+                <p class="description">
+                    {% blocktrans %}
+                    De plus, nous agissons pour une bonne cause :
+                    {% endblocktrans %}
+                </p>
+                <ul class="description">
+                    <li>{% trans 'Vous recevez 50 % des gains remportés' %}</li>
+                    <li>{% trans 'Nous utilisons les 50 % restants pour soutenir des projets sociaux et solidaires' %}</li>
+                </ul>
+                <div class="btn-wrapper">
+                    <a class="btn-primary" href=" ">{% trans 'Jouer ici' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Courses Hippiques -->
+    <div class="section container">
+        <div class="row">
+            <div class="col-12 col-lg-4 mb-4 mb-lg-0">
+                <a href=" ">
+                    <img
+                        src="{% static 'images/courses.jpg' %}"
+                        alt="{% trans 'Image promotion Courses hippiques' %}"
+                        class="img-fluid"
+                    >
+                </a>
+            </div>
+            <div class="col-12 col-lg-8">
+                <h2 class="title">{% trans 'Courses hippiques' %}</h2>
+                <p class="description">
+                    {% blocktrans %}
+                    Plongez dans le monde palpitant des courses hippiques ! Que vous soyez novice ou expert, ressentez la montée d'adrénaline à chaque pari et participez à des moments de pure excitation.
+                    {% endblocktrans %}
+                </p>
+                <p class="description">
+                    {% blocktrans %}
+                    Suivez les courses, pariez, et vibrez au rythme des sabots. Le prochain grand gagnant, c’est peut-être vous !
+                    {% endblocktrans %}
+                </p>
+                <div class="btn-wrapper">
+                    <a class="btn-primary" href=" ">{% trans 'Parier ici' %}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="featured-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <div class="contact-title">
+                        <h1 style="margin-top:120px;"><strong>EURO MILLIONS MONDE #{{ num_tirage.numero }}</strong></h1>
+                          {%if partner %}
+                        <h2> En partenariat avec <strong> {{ partner.nom }} </strong></h2>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-lg-12 col-md-12 col-sm-12">
+                    <h1 style="margin-top:10px;">Tirage des auditeurs</h1>
+                        <h4 style="font-size:1.2em; text-indent:45px; margin-bottom:50px;">
+                            Toute l’Afrique attend son 1 er milliardaire Africain à l’Euro Millions Monde en FCFA.
+                        </h4>
+                </div>
+            </div>
+
+            <div class="row">
+                {%if ticket %}
+                {% for t in  ticket %}
+                    <div class="col-12 col-md-4 col-lg-4">
+                        <div class="single-blog-post style-2">
+                            {% if t.image_ticket %}
+                                <div class="post-thumb">
+                                    <img src="{{t.image_ticket.url}}" height="300" width="400" alt="no image" class="rounded img-fluid">
+                                </div>
+                            {% endif %}
+                            <div class="post-data">
+                                <a href="#" class="post-title">
+                                    <h4 class="text-center"> {{t.libelle}} </h4>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+                {% else %}
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="single-blog-post style-2">
+                           <P>Auncun resultat pour le moment.</P>
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

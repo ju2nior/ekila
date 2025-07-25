@@ -1,0 +1,317 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- Slider Principal -->
+    <section class="slider-section mb-5" id="slider-menu">
+        <div class="container-fluid">
+            <div id="carousel-example" class="carousel slide" data-bs-ride="carousel">
+
+                <!-- Indicateurs de position -->
+                <ol class="carousel-indicators">
+                    {% if sliders %}
+                        {% for slide in sliders %}
+                            <li data-bs-target="#carousel-example" data-bs-slide-to="{{ forloop.counter0 }}" class="{% if forloop.first %}active{% endif %}"></li>
+                        {% endfor %}
+                    {% else %}
+                        <li data-bs-target="#carousel-example" data-bs-slide-to="0" class="active"></li>
+                        <li data-bs-target="#carousel-example" data-bs-slide-to="1"></li>
+                        <li data-bs-target="#carousel-example" data-bs-slide-to="2"></li>
+                    {% endif %}
+                </ol>
+
+                <!-- Contenu du slider -->
+                <div class="carousel-inner">
+                        <!-- Défaut: Images statiques si aucun contenu -->
+                        {% if welcome_slider %}
+                        <div class="carousel-item active">
+                            <img src="{{ welcome_slider.image.url }}" class="d-block w-100" alt="Bienvenue" loading="lazy">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5>Bienvenue</h5>
+                                <p>{{ welcome_slider.description }}</p>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        {% for slider in sliders %}
+                        <div class="carousel-item">
+                            <img src="{{ slider.image.url }}" class="d-block w-100" alt="Bienvenue" loading="lazy">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5><a href="{{ slider.url }}"></a>{{ slider.description }}</h5>
+                            </div>
+                        </div>
+                        {% endfor %}
+                </div>
+
+                <!-- Boutons de navigation -->
+                <a class="carousel-control-prev" href="#carousel-example" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Précédent</span>
+                </a>
+                <a class="carousel-control-next" href="#carousel-example" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Suivant</span>
+                </a>
+            </div>
+        </div>
+    </section>
+<!-- Section : À la Une -->
+<section class="content-section py-5 bg-light" id="a_la_une">
+    <div class="container-fluid">
+        <div class="text-center">
+            <h4 class="section-title fw-bold" style="color: #040458;">À la Une</h4>
+        </div>
+            <div class="row mt-4">
+                {% for actu in actuality %}
+                    <div class="col-12 col-md-6 col-lg-3 mb-4">
+                        <a href="{% url 'actuality:actuality_detail' actu.slug_uri %}" class="card border-0 shadow-sm">
+                            <img
+                                src="{{ actu.image.url }}"
+                                 class="card-img-top img-fluid fixed-dimensions"
+                                 alt="{{ actu.title|default_if_none:'Titre par défaut' }}"
+                                 loading="lazy"
+                            >
+                            <div class="card-body">
+                                <p class="card-title text-dark fs-4 fw-bold d-block">
+                                    {{ actu.title|truncatechars:50 }}
+                                </p>
+                                <p class="card-text text-muted fs-6">{{ actu.text|truncatechars:100 }}</p>
+                            </div>
+                        </a>
+                    </div>
+                {% endfor %}
+            </div>
+    </div>
+    <div class="container text-center">
+        <a href="{% url 'actuality:actuality_list' %}" class="btn btn-primary">
+            Toutes les news
+        </a>
+    </div>
+</section>
+
+<style>
+    /* === STYLE GÉNÉRAL DE LA SECTION === */
+#jeux_menu {
+    padding: 4rem 2rem;
+    background-color: var(--light-background);
+    border-radius: 15px;
+    box-shadow: 0px 6px 25px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    margin: 3rem auto;
+}
+
+/* TITRE PRINCIPAL */
+#jeux_menu h4.section-title {
+    font-size: 3rem; /* Taille de texte plus grande pour être accrocheuse */
+    color: var(--primary-color);
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 0.15rem;
+}
+
+/* SOUS-TITRE */
+#jeux_menu .section-subtitle {
+    font-size: 1.8rem;
+    color: var(--secondary-color);
+    margin-bottom: 2.5rem; /* Espacement plus large sous le sous-titre */
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+    font-weight: 400;
+}
+
+/* ESPACE POUR LA PREUVE SOCIALE */
+#jeux_menu .social-proof {
+    background: linear-gradient(90deg, #fd7e14, #FFA500);
+    color: white;
+    font-size: 1.4rem;
+    padding: 1.5rem;
+    border-radius: 15px;
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    box-shadow: 0 4px 15px rgba(255, 165, 0, 0.5);
+    animation: glow 2s infinite;
+    letter-spacing: 0.05rem;
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+/* Ajout d'une légère animation de glow ("respiration lumineuse") */
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 30px rgba(255, 215, 0, 0.7);
+    }
+    100% {
+        box-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+    }
+}
+
+/* Étoile ou icône avant le texte */
+#jeux_menu .social-proof::before {
+    content: '✨';
+    font-size: 1.8rem;
+    position: absolute;
+    top: 50%;
+    left: 13px;
+    transform: translateY(-50%);
+}
+
+/* Effet de survol */
+#jeux_menu .social-proof:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+/* GRILLE DES IMAGES ET CARTES */
+#jeux_menu .row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+#jeux_menu .col-12 {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Largeur maximale imposante */
+    text-align: center;
+}
+
+/* IMAGES AVEC TAILLE FIXE ET STYLÉES */
+#jeux_menu .col-12 img {
+    display: block;
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 15px;
+    transition: all 0.3s ease;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* EFFET AU SURVOL DES IMAGES */
+#jeux_menu .col-12 img:hover {
+    transform: scale(1.1);
+    box-shadow: 0px 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* TITRE SOUS LES IMAGES */
+#jeux_menu .col-12 p {
+    margin: 1rem 0;
+    color: var(--primary-color);
+    font-size: 1.6rem;
+    font-weight: bold;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+/* DESCRIPTION SOUS LE TITRE */
+#jeux_menu .col-12 p.description {
+    font-size: 1.2rem;
+    font-family: 'Roboto', sans-serif;
+    color: var(--dark-text-color);
+    margin-top: 0.5rem;
+    line-height: 1.5rem;
+    text-align: center;
+}
+
+/* STYLE DU BOUTON PRINCIPAL */
+#jeux_menu .btn-primary {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    padding: 15px 59px;
+    border-radius: 30px;
+    text-transform: uppercase;
+    font-size: 1.3rem;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    margin: 2.5rem auto 0; /* Centrer horizontalement */
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+/* EFFET SUR LE BOUTON */
+#jeux_menu .btn-primary:hover {
+    background-color: var(--secondary-color);
+    transform: scale(1.12);
+    box-shadow: 0px 12px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* ADAPTATION AUX MOBILE ET TABLETTES */
+@media (max-width: 768px) {
+    #jeux_menu h4.section-title {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+    }
+    #jeux_menu .section-subtitle {
+        font-size: 1.5rem;
+        margin-bottom: 2rem;
+    }
+    #jeux_menu .btn-primary {
+        font-size: 1.2rem;
+        padding: 14px 50px;
+    }
+    #jeux_menu .col-12 img {
+        height: 250px;
+    }
+
+    #jeux_menu .row {
+        gap: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    #jeux_menu {
+        padding: 2.5rem 1rem; /* Espacement réduit */
+    }
+    #jeux_menu h4.section-title {
+        font-size: 2rem;
+    }
+    #jeux_menu .section-subtitle {
+        font-size: 1.3rem;
+    }
+    #jeux_menu .btn-primary {
+        font-size: 1rem;
+        padding: 10px 30px;
+    }
+    #jeux_menu .col-12 img {
+        height: 200px;
+    }
+    #jeux_menu .row {
+        gap: 1rem;
+    }
+}
+</style>
+
+<!-- Section : Jeux -->
+<section id="jeux_menu">
+    <div class="container">
+        <h4 class="section-title">Espace Jeux</h4>
+        <p class="section-subtitle">🎯 Tentez votre chance et changez votre vie aujourd'hui !</p>
+        <div class="social-proof">Une victoire peut changer tout : inscrivez-vous et jouez !</div>
+        <div class="row">
+            <!-- Jeu 1 -->
+            <div class="col-12">
+                <img src="{% static 'images/emm.jpg' %}" alt="Jeu 1">
+                <p>Euro Millions</p>
+                <p class="description">Changez votre vie grâce au jackpot !</p>
+            </div>
+            <!-- Jeu 2 -->
+            <div class="col-12">
+                <img src="{% static 'images/courses.jpg' %}" alt="Jeu 2">
+                <p>Courses Hippiques</p>
+                <p class="description">Pariez sur vos chevaux favoris et ressentez l’émotion !</p>
+            </div>
+        </div>
+        <a href="{% url 'miscellaneous:e-jeux' %}" class="btn-primary">🎮 Jouez Maintenant !</a>
+    </div>
+</section>
+
+{% endblock %}

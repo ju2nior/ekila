@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="featured-post-area">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-8 col-lg-8">
+                <div class="section-heading">
+                    <h6>Détails sur l'offre </h6>
+                </div>
+                <div class="row" style="margin-top:-10%">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="single-blog-post featured-post">
+                            <div class="post-data">
+                                <h2 style="font-family: 'Times New Roman', Times, serif;"> <strong>{{ offre.titre }} </strong> </h2>
+                                <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;">
+                                    {{ offre.description | safe }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

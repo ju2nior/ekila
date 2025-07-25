@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section id="count_perso_tarif">
+    <div class="container py-5">
+        <!-- En-tête avec Titre et Menu Mon Profil -->
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2>Tableau de bord</h2>
+
+            <!-- Menu déroulant Mon Profil -->
+            <div class="dropdown">
+                <button
+                    class="btn btn-outline-primary dropdown-toggle d-flex align-items-center gap-2"
+                    id="profileDropdown"
+                    data-bs-toggle="dropdown">
+                    <i class="fa fa-user-circle" style="font-size: 1.4rem;"></i>
+                    <span>Mon Profil</span>
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow">
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2" href="#">
+                            <i class="fa fa-pencil-alt text-primary"></i>
+                            Modifier le profil
+                        </a>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item d-flex align-items-center gap-2 text-danger" href="{% url 'tarif:logout' %}">
+                            <i class="fa fa-sign-out-alt"></i>
+                            Se déconnecter
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Navigation sous forme d'onglets -->
+        <ul class="nav nav-tabs mb-4">
+            <li class="nav-item">
+                <a
+                    class="nav-link {% if request.resolver_match.url_name == 'creer_commande' %}active{% endif %}"
+                    href="{% url 'tarif:creer_commande' %}">
+                    Créer commande
+                </a>
+            </li>
+            <li class="nav-item">
+                <a
+                    class="nav-link {% if request.resolver_match.url_name == 'liste_commandes' %}active{% endif %}"
+                    href="{% url 'tarif:liste_commandes' %}">
+                    Liste des commandes
+                </a>
+            </li>
+        </ul>
+
+        <!-- Contenu principal du tableau -->
+        <div class="card">
+            <div class="card-body">
+                {% block dashboard_content %}
+                <p class="text-muted">Bienvenue sur votre tableau de bord.</p>
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

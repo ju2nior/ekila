@@ -1,0 +1,821 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <meta name="description" content="E-RADIO | Vivez la vie à fond - Infos - Musik - Talk - Jeux">
+  <meta name="keywords" content="MNLV radio, MNLV, MNLV TV, radio, e-radio, webradio, radio digitale, radio à thème, e-radio en afrique, vivez la vie à fond, artistes africains, Musik africa, e-radio talk, e-radio infos, e-radio jeux, euro million" />
+  <meta name="robots" content="index,follow,all">
+  <meta name="title" content= "" />
+  <META NAME="Search Engines" CONTENT="AltaVista, AOLNet, Infoseek, Excite, Hotbot, Lycos, Magellan, LookSmart, CNET, voila, google, yahoo, alltheweb, msn, netscape, nomade">
+  <link rel="shortcut icon" href="{%static 'images/mnlv-logo.png' %}" type="image/x-icon">
+  <meta name="description" content="">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+  <!-- Balises SEO générales -->
+  <link rel="canonical" href="https://mnlvm.com/">
+
+  <!-- Open Graph pour le partage Facebook -->
+  <meta property="og:title" content="E-RADIO | La Radio digitale : Infos, Talk et Musik !">
+  <meta property="og:description" content="Plongez dans l'univers de E-Radio : Musique africaine, Talk-shows, Infos et Jeux. Vivez la vie à fond !">
+  <meta property="og:image" content="https://mnlvm.com/static/images/og-image.jpg">
+  <meta property="og:url" content="https://mnlvm.com/">
+  <meta property="og:type" content="website">
+
+  <!-- Twitter Cards (partage sur Twitter) -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="E-RADIO | Infos, Talk, Musik">
+  <meta name="twitter:description" content="Découvrez la radio digitale africaine la plus branchée : Infos, Talk et Musik. À écouter partout, tout le temps.">
+  <meta name="twitter:image" content="https://mnlvm.com/static/images/twitter-image.jpg">
+
+  <!-- Icône du site -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+
+  <title>MNLV Média | Vivez la vie à fond - Infos - Musik - Talk - Jeux</title>
+  <link rel="stylesheet" href="{%static 'bootstrap/css/bootstrap.min.css' %}">
+  <link rel="stylesheet" href="{%static 'bootstrap/css/bootstrap-grid.min.css' %}">
+  <link rel="stylesheet" href="{%static 'css/base.css' %}">
+  <link rel="stylesheet" href="{%static 'css/web-radio.css' %}">
+  <link rel="stylesheet" href="{%static 'css/horoscope.css' %}">
+  <link rel="stylesheet" href="{%static 'css/video.css' %}">
+  <link rel="stylesheet" href="{%static 'css/actu.css' %}">
+  <link rel="stylesheet" href="{%static 'css/a-propos.css' %}">
+  <!-- Polices Google -->
+
+  <!-- Styles CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'socicon/css/styles.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+
+  <!-- Script JavaScript important -->
+  <script async src="https://mnlvm.com/static/js/cookiechoices.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4252774617128607" crossorigin="anonymous"></script>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+  </noscript>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+</head>
+
+<body>
+   <nav>
+       <div class="navbar-custom">
+           <div class="contact-number">
+               <!-- <div>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#1c1c2c" d="M19.95 21q-3.125 0-6.175-1.362t-5.55-3.863t-3.862-5.55T3 4.05q0-.45.3-.75t.75-.3H8.1q.35 0 .625.238t.325.562l.65 3.5q.05.4-.025.675T9.4 8.45L6.975 10.9q.5.925 1.187 1.787t1.513 1.663q.775.775 1.625 1.438T13.1 17l2.35-2.35q.225-.225.588-.337t.712-.063l3.45.7q.35.1.575.363T21 15.9v4.05q0 .45-.3.75t-.75.3"/></svg>
+                   <a href="tel:+237650813711">(MTN) +237 650 813 711</a>
+                   <span> - </span>
+               </div>
+               <div>
+                   <a href="tel:+237658335709">(Orange) +237 658 335 709</a>
+               </div> -->
+           </div>
+           <div class="second">
+               <div>
+                   <a href="{% url 'miscellaneous:index' %}">
+                       <img
+                           src="{%static 'images/mnlv-logo.png' %}"
+                           alt="MNLV AUDIO LOGO"
+                           class="logo"
+                       >
+                   </a>
+               </div>
+               <div class="time">
+                   <time id="time"></time>
+                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"><path fill="#1c1c2c" d="m14.55 16.55l1.4-1.425l-2.95-2.95V8h-2v5zM11 6h2V4h-2zm7 7h2v-2h-2zm-7 7h2v-2h-2zm-7-7h2v-2H4zm8 9q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22"/></svg>
+               </div>
+           </div>
+       </div>
+
+       <!--  Radio Carousel     -->
+       <div id="radioCarousel">
+           <button class="main-one"></button>
+           <div class="separator"></div>
+           <div class="swiper">
+               <div class="swiper-wrapper"></div>
+
+               <div class="swiper-button-prev"></div>
+               <div class="swiper-button-next"></div>
+           </div>
+       </div>
+
+   <!--  Player + information + playlist    -->
+   <div class="player-container">
+       <div class="player-information">
+           <div style="display: flex; align-items: center;">
+               <div>
+                   <img id="cover" src="" alt="">
+               </div>
+               <div class="details">
+                   <p id="direct">
+                       <span>EN DIRECT |</span>
+                       <span class="direct-radio"></span>
+                   </p>
+                   <p id="artist"></p>
+                   <p id="title"></p>
+               </div>
+           </div>
+
+           <button class="mobile-playlist">
+               <svg
+                   data-id="playlist-open"
+                   xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+               >
+                   <path
+                       d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0 14c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0-7c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2"
+                   />
+               </svg>
+
+               <svg
+                   hidden data-id="playlist-close"
+                   xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+               >
+                   <path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/>
+               </svg>
+           </button>
+       </div>
+
+       <div class="player">
+           <div class="flux-left">
+               <button></button>
+               <button></button>
+           </div>
+
+           <div class="main-radio">
+               <span class="flux-value">320</span>
+               <button id="current-radio">
+                   <audio autoplay preload="metadata" hidden>
+                       Your browser does not support the audio element.
+                   </audio>
+                   <svg data-icon="pause" xmlns="http://www.w3.org/2000/svg" w  idth="33" height="33" fill="currentColor" class="bi bi-play-fill" viewBox="0 0 16 16">
+                       <path d="m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393"/>
+                   </svg>
+
+                   <svg hidden data-icon="play" xmlns="http://www.w3.org/2000/svg" width="33" height="33" fill="currentColor" class="bi bi-pause-fill" viewBox="0 0 16 16">
+                       <path d="M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5"/>
+                   </svg>
+               </button>
+               <span>kbps</span>
+           </div>
+
+           <div class="flux-right">
+               <button></button>
+               <button></button>
+           </div>
+       </div>
+
+       <div class="right-player">
+           <div id="direct-laptop">
+               <span>EN DIRECT |</span>
+               <span class="direct-radio"></span>
+           </div>
+
+           <button class="laptop-playlist">
+               <svg
+                       data-id="playlist-open"
+                       xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+               >
+                   <path
+                           d="M12 3c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0 14c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2m0-7c-1.1 0-2 .9-2 2s.9 2 2 2s2-.9 2-2s-.9-2-2-2"
+                   />
+               </svg>
+
+               <svg
+                       hidden data-id="playlist-close"
+                       xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+               >
+                   <path d="M6.4 19L5 17.6l5.6-5.6L5 6.4L6.4 5l5.6 5.6L17.6 5L19 6.4L13.4 12l5.6 5.6l-1.4 1.4l-5.6-5.6z"/>
+               </svg>
+           </button>
+       </div>
+
+       <div class="playlist" data-id="closed">
+           <h2 class="playlist-title">Playlist (0)</h2>
+           <div id="playlist-inner" class="scroll"></div>
+       </div>
+   </div>
+
+    <header class="">
+        <ul class="scroll-menu" id="menus">
+            <li data-id="home"><a href="{% url 'miscellaneous:index' %}">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24">
+                    <path d="M5 20V9.5l7-5.288L19 9.5V20h-5.192v-6.384h-3.616V20z"/>
+                </svg>
+            </a></li>
+            <li data-id="a-propos"><a href="{% url 'miscellaneous:a-propos' %}">A PROPOS</a></li>
+            <li data-id="actualites"><a href="{% url 'actuality:actuality_list' %}">ACTUALITES</a></li>
+            <li data-id="e-radio"><a href="{% url 'miscellaneous:radio' %}">WEBRADIOS</a></li>
+            <li data-id="jeux"><a href="{% url 'miscellaneous:e-jeux' %}">JEUX</a></li>
+            <li data-id="videos"><a href="{% url 'miscellaneous:video' %}">VIDEOS</a></li>
+            <li data-id="contact"><a href="{% url 'miscellaneous:contact' %}">CONTACT</a></li>
+        </ul>
+    </header>
+</nav>
+
+  <!-- SECTION : CONTENU PRINCIPAL -->
+  <main>
+    {% block content %}
+    <!-- Contenu qui sera inséré ici -->
+    {% endblock %}
+  </main>
+
+<!-- Footer -->
+
+<footer>
+  <!-- Section Publicité -->
+  <section class="cid-publicite-footer" id="publicite-footer">
+    <div class="container-fluid py-2">
+      <!-- Carrousel Publicitaire -->
+      <div id="publiciteCarousel" class="carousel slide" data-bs-ride="carousel">
+
+        <!-- Contenu du Carrousel -->
+        <div class="carousel-inner" id="publicity-carousel"></div>
+
+        <!-- Boutons de Contrôle -->
+        <button class="carousel-control-prev" type="button" data-bs-target="#publiciteCarousel" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Précédent</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#publiciteCarousel" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Suivant</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Bas du Footer -->
+    <div class="footer-bottom">
+      <div class="social-links d-flex justify-content-center my-3">
+        <a href="#" class="social-link"><i class="bi bi-facebook"></i></a>
+        <a href="#" class="social-link"><i class="bi bi-twitter"></i></a>
+        <a href="#" class="social-link"><i class="bi bi-instagram"></i></a>
+        <a href="#" class="social-link"><i class="bi bi-linkedin"></i></a>
+        <a href="#" class="social-link"><i class="bi bi-youtube"></i></a>
+      </div>
+      <p class="text-center mb-2" style="font-size:12.5px;">
+        © MNLV <span id="currentYear"></span> - Tous droits réservés
+      </p>
+      <div class="footer-menu text-center">
+        <a href="/signaler-contenu/" class="footer-link">Signaler un contenu</a>
+        <span class="footer-separator">|</span>
+        <a href="/mentions-legales/" class="footer-link">Mentions légales</a>
+        <span class="footer-separator">|</span>
+        <a href="/politique-cookies/" class="footer-link">Politique de cookies</a>
+        <span class="footer-separator">|</span>
+        <a href="/contact/" class="footer-link">Contact</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bouton "Scroll to Top" -->
+  <div id="scrollToTop" aria-label="Revenir en haut" tabindex="0">
+    <i class="bi bi-arrow-up"></i>
+  </div>
+</footer>
+
+<!-- JS Bootstrap -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js" defer></script>
+
+<!-- JQuery (nécessaire si explicitement requis dans le projet) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+<!-- Externes : Scripts pour téléphones internationaux et navigation rapide -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/turbolinks/5.2.0/turbolinks.js"
+        integrity="sha512-G3jAqT2eM4MMkLMyQR5YBhvN5/Da3IG6kqgYqgU9zlIH4+2a+GuMdLb5Kpxy6ItMdCfgaKlo2XFhI0dHtMJjoRw=="
+        crossorigin="anonymous"></script>
+
+<script type="module">
+    import {
+        publicityListReactor,
+        createPublicity,
+        fetchPublicityList,
+    } from "/static/js/managePublicity.js";
+
+  // Sélection du bouton "Scroll to Top"
+  const scrollToTopBtn = document.getElementById("scrollToTop");
+
+  // Fonction pour effectuer le défilement avec une accélération progressive
+  function scrollToTopWithAcceleration() {
+    let position = window.scrollY; // Position actuelle
+    const acceleration = 1.1; // Facteur d'accélération
+    let speed = 5; // Vitesse initiale
+
+    function step() {
+      position -= speed; // Réduction dynamique de la position
+      speed *= acceleration; // Augmentation progressive de la vitesse
+
+      // Scroll vers la position mise à jour
+      window.scrollTo(0, position);
+
+      // Stop l'animation lorsqu'on atteint le sommet
+      if (position > 0) {
+        requestAnimationFrame(step);
+      } else {
+        window.scrollTo(0, 0); // Correction finale
+      }
+    }
+
+    step(); // Initier l'animation
+  }
+
+  // Événement sur le clic pour déclencher le défilement
+  scrollToTopBtn.addEventListener("click", scrollToTopWithAcceleration);
+
+  // Gestion de l'apparition/masquage dynamique du bouton
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 200) {
+      scrollToTopBtn.classList.add("show"); // Afficher le bouton
+    } else {
+      scrollToTopBtn.classList.remove("show"); // Cacher le bouton
+    }
+  });
+
+    fetchPublicityList();
+    publicityListReactor.subscribe(createPublicity);
+</script>
+
+<script>
+    // Code JavaScript pour rendre l'année dynamique
+       const yearElement = document.getElementById('currentYear');
+       const currentYear = new Date().getFullYear();
+       yearElement.textContent = currentYear;
+</script>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const closeButtons = document.querySelectorAll(".close-desc");
+    closeButtons.forEach(button => {
+      button.addEventListener("click", function(event) {
+        event.preventDefault();
+        const caption = this.parentElement;
+        caption.style.display = "none";
+      });
+    });
+  });
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+   <script type="module">
+       import {
+           fetchFirstRadio,
+           fetchSubRadioList,
+           fetchRadioMetaDataByName,
+           currentRadioName,
+           currentMainRadio,
+       } from  "/static/js/api.js";
+       import  {
+           FLUX_FOR_SECONDARY_RADIO,
+           FLUX_FOR_MAIN_RADIO,
+           DEFAULT_FLUX_FOR_MAIN_RADIO,
+           DEFAULT_FLUX_FOR_SECONDARY_RADIO,
+           DEFAULT_COVER,
+           INTERVAL_METADATA_FETCHING,
+       } from "/static/js/constants.js";
+       import {
+           startHorizontalSwiper,
+           togglePlaylist,
+           setMenuStyleOnLoad,
+       } from  "/static/js/animations.js";
+       import { setRadioMetaDataSession } from  "/static/js/metaDataMedia.js";
+       import { getDate } from  "/static/js/date.js";
+
+   const fluxLeft = document.querySelector(".flux-left");
+   const fluxRight = document.querySelector(".flux-right");
+   const mainRadio = document.querySelector(".main-radio");
+
+   // Fluxes management
+   let fluxList = [];
+   let currentFlux = {};
+   const setButtonText = (button, label) => {
+       button.innerText = `${label}kbps`;
+   };
+
+       let currentMainRadioMetaData = {};
+       let currentSubRadioMetaData = {};
+       const mixedFluxes = () => {
+           if (currentSubRadioMetaData.id) {
+               setButtonText(fluxLeft.querySelector("button"), fluxList[0].label);
+               setButtonText(fluxRight.querySelector("button"), fluxList[1].label);
+               return;
+           }
+           setButtonText(fluxLeft.querySelector("button"), fluxList[0].label);
+           setButtonText(fluxLeft.querySelectorAll("button")[1], fluxList[1].label);
+
+       setButtonText(fluxRight.querySelector("button"), fluxList[2].label);
+       setButtonText(fluxRight.querySelectorAll("button")[1], fluxList[3].label);
+   }
+
+   // Player audi0 initialization
+   const audioButtonPlayer = document.querySelector("#current-radio");
+   const audio = audioButtonPlayer.querySelector("audio");
+   const pauseAudio = () => {
+       audio.pause();
+
+       audioButtonPlayer.querySelector("[data-icon='pause']").removeAttribute("hidden");
+       audioButtonPlayer.querySelector("[data-icon='play']").setAttribute("hidden", "hidden");
+   };
+
+   const playAudio = async () => {
+       await audio.play();
+
+       audioButtonPlayer.querySelector("[data-icon='pause']").setAttribute("hidden", "hidden");
+       audioButtonPlayer.querySelector("[data-icon='play']").removeAttribute("hidden");
+   };
+
+   audioButtonPlayer.addEventListener("click", async () => {
+       if (audio.paused) {
+           try {
+               await playAudio();
+           } catch (error) {
+               console.warn(error);
+           }
+           return;
+       }
+       pauseAudio();
+   });
+
+   const setTheCurrentRadioFlux = (currentFluxSelected) => {
+       mainRadio.querySelector(".flux-value").textContent = currentFluxSelected.label;
+       const playerButton = mainRadio.querySelector("button");
+
+       if (!currentFluxSelected.value) {
+           playerButton.disabled = true;
+           playerButton.className = "main-deactivate";
+           playerButton.title = "Ce flux est indisponible pour le moment pour cette radio";
+
+           audioButtonPlayer.querySelector("audio")
+               .setAttribute("src", "");
+           return;
+       }
+       audioButtonPlayer.querySelector("audio")
+           .setAttribute("src", currentFluxSelected.value);
+       playerButton.className = "";
+   }
+
+   const disabledButtonWithNoFlux = (button) => {
+       button.disabled = true;
+       button.className = "deactivate";
+       button.title = "Ce flux est indisponible pour le moment pour cette radio";
+       button.innerText = button.textContent;
+   }
+
+   const enableButtonWithFlux = (button) => {
+       button.disabled = false;
+       button.className = "activate";
+       button.title = button.textContent;
+   }
+
+   const applyLabelAndEventOnFluxes = (button, fluxToApply) => {
+       button.innerText = `${fluxToApply.label}kbps`;
+
+       async function clickCallback(event) {
+           event.stopImmediatePropagation();
+
+           pauseAudio();
+           const label = button.textContent.split("kbps")[0];
+
+           const currentOneIndex = fluxList.findIndex((flux) => flux.label === label);
+
+           const fluxSelected = {...fluxList[currentOneIndex]};
+
+           fluxList.splice(currentOneIndex, 1, currentFlux);
+           currentFlux = {...fluxSelected};
+
+               setTheCurrentRadioFlux(currentFlux);
+               mixedFluxes();
+
+               await playAudio();
+           }
+
+       if (!fluxToApply.value) {
+           disabledButtonWithNoFlux(button);
+           return;
+       }
+
+       enableButtonWithFlux(button);
+       button.addEventListener("click", clickCallback, false);
+   }
+
+   const initSecondaryRadioFluxes = () => {
+       fluxList = [...FLUX_FOR_SECONDARY_RADIO];
+       applyLabelAndEventOnFluxes(fluxLeft.querySelector("button"), fluxList[0]);
+       applyLabelAndEventOnFluxes(fluxRight.querySelector("button"), fluxList[1]);
+
+       //Deactivate
+       fluxLeft.querySelectorAll("button")[1].style.display = "none";
+       fluxRight.querySelectorAll("button")[1].style.display = "none";
+   }
+
+   const initMainRadioFluxes = () => {
+       fluxList = [...FLUX_FOR_MAIN_RADIO];
+
+       //Activate
+       fluxLeft.querySelectorAll("button")[1].style.display = "flex";
+       fluxRight.querySelectorAll("button")[1].style.display = "flex";
+
+       applyLabelAndEventOnFluxes(fluxLeft.querySelector("button"), fluxList[0]);
+       applyLabelAndEventOnFluxes(fluxLeft.querySelectorAll("button")[1], fluxList[1]);
+
+           applyLabelAndEventOnFluxes(fluxRight.querySelector("button"), fluxList[2]);
+           applyLabelAndEventOnFluxes(fluxRight.querySelectorAll("button")[1], fluxList[3]);
+       }
+
+       const setMainRadioFluxes = (radio) => {
+           currentFlux = {
+               ...DEFAULT_FLUX_FOR_MAIN_RADIO,
+               value: radio.flux_infos["320kps"]
+           };
+
+       fluxList[0].value = radio.flux_infos["128kps"];
+       fluxList[1].value = radio.flux_infos["96kps"];
+       fluxList[2].value = radio.flux_infos["64kps"];
+       fluxList[3].value = radio.flux_infos["32kps"];
+   };
+
+   const setSecondaryRadioFluxes = (radio) => {
+       currentFlux = {
+           ...DEFAULT_FLUX_FOR_SECONDARY_RADIO,
+           value: radio.flux_infos["128kps"],
+       };
+
+       fluxList[0].value = radio.flux_infos["96kps"];
+       fluxList[1].value = radio.flux_infos["32kps"];
+   };
+
+   const setFluxes = (radio, isMainRadio) => {
+       if (isMainRadio) {
+           initMainRadioFluxes();
+           setMainRadioFluxes(radio);
+           return;
+       }
+       initSecondaryRadioFluxes();
+       setSecondaryRadioFluxes(radio);
+   };
+
+   // Radio stylish
+   const stylishCurrentRadio = (radioName) => {
+       const currentCarouselSubRadio = document.querySelector(`[data-id='sub-radio-${radioName}']`);
+       currentCarouselSubRadio?.classList?.add("current-sub-radio");
+
+       //Carousel radio
+       const currentSubRadioPlaylist = document.querySelector(`[data-id='radio-${radioName}']`);
+       currentSubRadioPlaylist?.classList?.add("current-radio");
+   }
+
+   const unStylishCurrentRadio = (oldRadioName) => {
+       document.querySelector(`[data-id='radio-${oldRadioName}']`)?.classList.remove("current-radio");
+       document.querySelector(`[data-id='sub-radio-${oldRadioName}']`)?.classList.remove("current-sub-radio");
+   }
+
+   // Set current radio information to display before/above the player
+   const setCurrentSongInformation = (radioMetaData) => {
+       document.querySelector("#cover").src = radioMetaData.current_track.cover || DEFAULT_COVER;
+       document.querySelector("#title").innerText = radioMetaData.current_track.title || "Pas de titre";
+       document.querySelector("#artist").innerText = radioMetaData.current_track.artist_name || "Artiste inconnue";
+
+
+           // set radio name both on mobile and desktop
+           document.querySelector("#direct-laptop .direct-radio").innerText = radioMetaData.radio_name;
+           document.querySelector("#direct .direct-radio").innerText = radioMetaData.radio_name;
+       };
+
+   let intervalID;
+   const startMetaDataIntervalFetching = () => {
+       intervalID = setInterval(async () => {
+           const radioMetaData = await fetchRadioMetaDataByName(currentRadioName);
+           setRadioMetaDataSession({
+               title: radioMetaData.current_track.title,
+               album: radioMetaData.current_track.album_title,
+               artist: radioMetaData.current_track.artist_name,
+               artwork: [
+                   {
+                       src: radioMetaData.current_track.cover || radioMetaData.radio_cover || DEFAULT_COVER,
+                   },
+               ],
+           });
+           setCurrentSongInformation(radioMetaData);
+
+               if (currentRadioName === currentMainRadioMetaData.radio_name) {
+                   currentMainRadioMetaData = radioMetaData;
+               }
+           }, INTERVAL_METADATA_FETCHING);
+       };
+
+       const clearMetaDataInterval = () => {
+           clearInterval(intervalID);
+       }
+
+       const setCurrentRadio = async (
+           radioName,
+           isMainRadio
+       ) => {
+           if (currentRadioName === radioName) return;
+
+           const oldName = currentRadioName;
+
+           clearMetaDataInterval();
+           const radioMetaData = await fetchRadioMetaDataByName(radioName);
+           setFluxes(radioMetaData, isMainRadio);
+
+           setRadioMetaDataSession({
+               title: radioMetaData.current_track.title,
+               album: radioMetaData.current_track.album_title,
+               artist: radioMetaData.current_track.artist_name,
+               artwork: [
+                   {
+                       src: radioMetaData.current_track.cover || radioMetaData.radio_cover || DEFAULT_COVER,
+                   },
+               ],
+           });
+
+           setCurrentSongInformation(radioMetaData);
+
+           if (isMainRadio) {
+               currentMainRadioMetaData = radioMetaData;
+               setTheCurrentRadioFlux(currentFlux);
+               currentSubRadioMetaData = {};
+
+               pauseAudio();
+               unStylishCurrentRadio(oldName);
+               try {
+                    await playAudio();
+               } catch (e) {
+                   console.warn(e);
+               }
+               finally {
+                   startMetaDataIntervalFetching();
+               }
+               return;
+           }
+           currentSubRadioMetaData = radioMetaData;
+
+       pauseAudio();
+       unStylishCurrentRadio(oldName);
+
+           setTheCurrentRadioFlux(currentFlux);
+           stylishCurrentRadio(radioName);
+
+           try {
+               await playAudio();
+           } catch (e) {
+               console.warn(e);
+           }
+           finally {
+               startMetaDataIntervalFetching();
+           }
+       }
+
+   const setCurrentCarouselRadio = (imageUrl, name) => {
+       const mainCurrentRadio = document.querySelector("#radioCarousel .main-one");
+       mainCurrentRadio.title = name;
+       mainCurrentRadio.addEventListener("click", async () => {
+           const isMainRadio = true;
+           await setCurrentRadio(name, isMainRadio);
+       });
+
+       const image = document.createElement("img");
+       image.src = imageUrl;
+       image.alt = name;
+
+       mainCurrentRadio.appendChild(image);
+   }
+
+       const clearCurrentCarouselRadio = () => {
+           const mainCurrentRadio = document.querySelector("#radioCarousel .main-one");
+           mainCurrentRadio.innerHTML = "";
+
+           const mainNewButton = document.createElement("button");
+           mainNewButton.className = "main-one";
+           mainCurrentRadio.replaceWith(mainNewButton);
+       };
+
+       const createRadioItemForCarousel = (imageUrl, name) => {
+           const radio = document.createElement("div");
+           radio.className = "radio";
+           radio.title = name;
+           radio.dataset.id = `radio-${name}`;
+           radio.addEventListener("click", async (event) => {
+               event.stopImmediatePropagation();
+
+           const isMainRadio = false;
+           await setCurrentRadio(name, isMainRadio);
+       });
+
+       const image = document.createElement("img");
+       image.src = imageUrl;
+       image.alt = name;
+
+       radio.appendChild(image);
+
+       const carouselItem = document.createElement("div");
+       carouselItem.className = "swiper-slide";
+
+       carouselItem.appendChild(radio);
+       return carouselItem;
+   }
+
+       const clearRadioItemForCarousel = () => {
+           document.querySelector("#radioCarousel .swiper-wrapper").innerHTML = "";
+       };
+
+       const createSubRadio = (cover, radioName) => {
+           const subRadio = document.createElement("div");
+           subRadio.className = "sub-radio";
+           subRadio.dataset.id = `sub-radio-${radioName}`;
+
+       const coverImage = document.createElement("img");
+       coverImage.src = cover;
+
+       const name = document.createElement("p");
+       name.innerText = radioName;
+
+       subRadio.appendChild(coverImage);
+       subRadio.appendChild(name);
+
+       subRadio.addEventListener("click", async (event) => {
+           event.stopImmediatePropagation();
+
+           const isMainRadio = false;
+           await setCurrentRadio(radioName, isMainRadio);
+       });
+       return subRadio;
+   }
+
+       const createPlaylist = (subRadios, mainCover) => {
+           const playlist = document.querySelector("#playlist-inner");
+           playlist.innerHTML = "";
+
+       const title = document.querySelector(".playlist-title");
+       title.textContent = `Playlist (${subRadios.length})`;
+
+       if (subRadios.length === 0) {
+           const noPlaylist = document.createElement("div");
+           noPlaylist.className = "fs-5 fw-bold p-3";
+           noPlaylist.style.color = "#808080";
+           noPlaylist.textContent = "Playlist vide";
+
+           playlist.appendChild(noPlaylist);
+           return;
+       }
+
+       subRadios.forEach((subRadio) => {
+           playlist.appendChild(createSubRadio(
+               mainCover,
+               subRadio.name
+           ));
+       });
+   }
+
+       const getFirstMainRadio = async () => {
+           currentMainRadio.value = await fetchFirstRadio();
+       };
+
+       const manageMainRadioChangeProcess = async (radioName, radioCover) => {
+           initMainRadioFluxes();
+           const radioContainerInner = document.querySelector("#radioCarousel .swiper-wrapper");
+           setCurrentCarouselRadio(radioCover, radioName);
+
+           const subRadiosList = await fetchSubRadioList(radioName);
+           subRadiosList.forEach(({ name }) => {
+               const radioNode = createRadioItemForCarousel(radioCover, name);
+               radioContainerInner.appendChild(radioNode);
+           });
+
+           createPlaylist(subRadiosList, radioCover);
+
+           const isMainRadio = true;
+           await setCurrentRadio(radioName, isMainRadio);
+       }
+
+       currentMainRadio.subscribe(async (mainRadio) => {
+           if (mainRadio.id === currentMainRadioMetaData.id) return;
+
+           clearCurrentCarouselRadio();
+           clearRadioItemForCarousel();
+
+           await manageMainRadioChangeProcess(
+               mainRadio.name,
+               mainRadio.radio_cover
+           );
+       });
+
+       getFirstMainRadio();
+       togglePlaylist();
+       startHorizontalSwiper();
+
+   setInterval(() => {
+       document.querySelector("#time").textContent = getDate();
+   }, 1000);
+
+   //Stylist the menu on load
+   window.addEventListener("load", setMenuStyleOnLoad);
+</script>
+  </body>
+</html>

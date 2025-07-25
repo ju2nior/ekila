@@ -1,0 +1,119 @@
+{% extends 'tarif/dashboard_base.html' %}
+
+{% block dashboard_content %}
+
+<div class="container mt-4" id="form-sect">
+    <h2 class="text-primary mb-4 text-center">
+        <i class="fa fa-plus-circle"></i> Créer une Commande
+    </h2>
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {% if "error" in message.tags %}
+                    <i class="fa fa-exclamation-circle"></i>
+                {% elif "success" in message.tags %}
+                    <i class="fa fa-check-circle"></i>
+                {% elif "info" in message.tags %}
+                    <i class="fa fa-info-circle"></i>
+                {% elif "warning" in message.tags %}
+                    <i class="fa fa-exclamation-triangle"></i>
+                {% endif %}
+                {{ message }}
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="row">
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="statut_client" class="form-label">
+                    <i class="fa fa-user-tag me-2"></i>Statut du Client
+                </label>
+                <select class="form-control" id="statut_client" name="statut_client">
+                    <option value="Particulier">Particulier</option>
+                    <option value="Société">Société</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="nom_client" class="form-label">
+                    <i class="fa fa-user me-2"></i>Nom du Client
+                </label>
+                <input type="text" class="form-control" id="nom_client" name="nom_client" placeholder="Entrez le nom du client">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="nom_societe" class="form-label">
+                    <i class="fa fa-building me-2"></i>Nom de la Société (optionnel)
+                </label>
+                <input type="text" class="form-control" id="nom_societe" name="nom_societe" placeholder="Entrez le nom de la société">
+            </div>
+
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="nom_responsable" class="form-label">
+                    <i class="fa fa-id-badge me-2"></i>Nom du Responsable
+                </label>
+                <input type="text" class="form-control" id="nom_responsable" name="nom_responsable" placeholder="Entrez le nom du responsable">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="email" class="form-label">
+                    <i class="fa fa-envelope me-2"></i>Email
+                </label>
+                <input type="email" class="form-control" id="email" name="email" placeholder="Entrez l'email" required>
+            </div>
+
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="telephone" class="form-label">
+                    <i class="fa fa-phone me-2"></i>Téléphone
+                </label>
+                <input type="text" class="form-control" id="telephone" name="telephone" placeholder="Entrez le numéro de téléphone" required>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="type_paiement" class="form-label">
+                    <i class="fa fa-money-bill me-2"></i>Type de Paiement
+                </label>
+                <select class="form-control" id="type_paiement" name="type_paiement">
+                    <option value="Comptant">Comptant</option>
+                    <option value="Crédit">À crédit</option>
+                </select>
+            </div>
+
+            <div class="form-group mb-3 col-md-6 col-12">
+                <label for="duree_jours" class="form-label">
+                    <i class="fa fa-clock me-2"></i>Durée de la Campagne (en jours)
+                </label>
+                <input type="number" class="form-control" id="duree_jours" name="duree_jours" value="7" min="1" placeholder="Par ex. : 7">
+            </div>
+        </div>
+
+        <h4 class="text-primary mt-4">
+            <i class="fa fa-ad me-2"></i>Choix des éléments publicitaires
+        </h4>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="publicite_site_web" name="publicite_site_web">
+            <label class="form-check-label" for="publicite_site_web">Publicité sur site web</label>
+        </div>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" id="publicite_mobile" name="publicite_mobile">
+            <label class="form-check-label" for="publicite_mobile">Publicité mobile</label>
+        </div>
+
+        <div class="text-end mt-4">
+            <button type="submit" class="btn btn-primary">
+                <i class="fa fa-check-circle me-2"></i>Soumettre
+            </button>
+        </div>
+    </form>
+</div>
+{% endblock %}

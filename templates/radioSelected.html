@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+        <div class="popular-news-area section-padding-20-20">
+            <div class="container">
+                <div class="pt-3"></div>
+                <div class="row mt-5">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        {% if page_obj %}
+                            <div class="section-heading">
+                                <h6>Liste des radios à thème</h6>
+                            </div>
+                        {% else %}
+                            <div class="section-heading">
+                                <h6>Détails de la radio</h6>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if page_obj %}
+                    <div class="row" style="margin-top:-55px;">
+                        {% for radio in page_obj %}
+                            <div class="item features-image сol-12 col-md-4 col-lg-2">
+                                <div class="item-wrapper">
+                                    <div class="item-img">
+                                        <a onclick="playAudioTheme()">
+                                            <img src="{{ radio.image.url }}" alt="{{radio.nom}}">
+                                            <a class="btn" href="{%url 'listenRadioTheme' radio.id %}" id="lecture_theme"></a>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                {% else %}
+
+                    <div class="row">
+                        <div class="col-12 col-md-12">
+                            <div class="single-blog-post style-2">
+                                <div class="post-thumb">
+                                    <img src="{{ radio.image.url }}" alt="{{radio.nom}}" width= "1200" height="300" style="margin-top:-30px;" class="rounded img-fluid">
+                                </div>
+                            </div>
+                            <div class="col-12 col-lg-12">
+                                <div class="text-wrapper">
+                                    <h3 class="mbr-section-title mt-3 mbr-fonts-style mb-3 display-5">
+                                        <a><strong>{{ radio.nom }}</strong></a>
+                                    </h3>
+                                    <a href="{% url 'listenRadio' radio.id %}" id="lecture">
+                                        <a style="margin-top:20px; margin-left:-12px;" class="btn" href="{{ radio.flux.url }}" onclick="playAudio()"> Ecoutez {{ radio.nom }}</a>
+                                    </a>
+                                    <p style="font-size:larger;" class="mbr-text mbr-fonts-style display-7"> {{ radio.description | linebreaks }} </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                {% endif %}
+
+                <div class="row mt-2">
+                    <div class="col-12 col-md-12 col-lg-12 align-items-center">
+                        <div class="pagination">
+                            <span class="step-links">
+                                {% if page_obj.has_previous %}
+                                    <a href="?page=1">&laquo; premier</a>
+                                    <a href="?page={{ page_obj.previous_page_number }}">précédent</a>
+                                {% endif %}
+
+                            <span class="current">
+                                {{ page_obj.number }} / {{ page_obj.paginator.num_pages }}.
+                            </span>
+
+                            {% if page_obj.has_next %}
+                                <a href="?page={{ page_obj.next_page_number }}">suivant</a>
+                                <a href="?page={{ page_obj.paginator.num_pages }}">dernier &raquo;</a>
+                            {% endif %}
+                            </span>
+                        </div>
+                     </div>
+                </div>
+            </div>
+        </div>
+
+{% endblock %}

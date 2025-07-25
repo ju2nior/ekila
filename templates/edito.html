@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+        <div class="featured-post-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-md-8 col-lg-8">
+                        <div class="section-heading">
+                            <h6>Détails sur l'édito</h6>
+                        </div>
+                        <div class="row" style="margin-top:-10%">
+                        {% if tempsRestant < 10 %}
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="single-blog-post featured-post">
+                                    <div class="post-thumb">
+                                        <a href="#"><img src="{{ edito.image.url }}" style="width: 150%; height:25%;"></a>
+                                    </div>
+
+                                    <div class="post-data">
+                                        <h2 style="font-family: 'Times New Roman', Times, serif;"> {{ edito.titre}} {{ emission.presentateur  }} </h2>
+                                        <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;font-family: 'Times New Roman', Times, serif;">
+                                            {{ edito.description_incomplete | safe | linebreaks  }}
+                                        </p>
+
+                                        {%if edito.fichier_audio_incomplet %}
+                                        <p>Payer pour télécharger et voir plus</p>
+                                        <div class="col-12 col-md-12">
+                                            <audio controls style="width:100%;margin-bottom:12px;">
+                                                <source src="{{ edito.fichier_audio_incomplet.url }}">
+                                            </audio>
+                                            <div id="paypal-button-container"></div>
+                                        </div>
+                                        {% else %}
+
+                                        {%if edito.url_de_l_audio %}
+                                            <p> Payer pour écouter et voir plus (Disponible en streaning) </p>
+                                            <div id="paypal-button-container"></div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% else %}
+
+                            <div class="col-12 col-md-12 col-lg-12">
+                                <div class="single-blog-post featured-post">
+                                    <div class="post-thumb">
+                                        <img src="{{ edito.image.url }}" style="width: 150%; height:25%;">
+                                    </div>
+                                    <div class="post-data">
+                                        <h2 style="font-family: 'Times New Roman', Times, serif;"> {{ edito.titre}} {{ emission.presentateur  }} </h2>
+                                        <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;font-family: 'Times New Roman', Times, serif;">
+                                            {{ edito.description_complete | safe | linebreaks  }}
+                                        </p>
+                                        {% if fichier_audio_complet %}
+                                        <div class="col-12 col-md-12">
+                                            <audio controls style="width:100%;margin-bottom:12px;">
+                                                <source src="{{ edito.fichier_audio_complet.url }}">
+                                            </audio>
+                                        </div>
+                                        {% else if edito.url_de_l_audio  %}
+                                            <div class="col-12 col-md-12">
+                                                <iframe width="500" height="200" src="{{ edito.url_de_l_audio }}" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture"></iframe>
+                                            </div>
+                                        {% else %}
+                                            <div class="col-12 col-md-12">
+                                                <p>Aucun  contenu pour le moment</p>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+
+                        {% endif %}
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <script>
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+
+        function orderPaiement(){
+            var url = "{%url 'completed' edito.id %}";
+            const csrftoken = getCookie('csrftoken');
+            fetch(url, {
+                method: 'POST',
+                headers:{
+                    'content-type':'application/json',
+                    'X-CSRFToken': csrftoken,
+                },
+                body:JSON.stringify({'Transaction made': true})
+            })
+        }
+        //create oder for a transaction...
+        paypal.Buttons({
+            style: {
+                height:  40,
+                color:  'blue',
+                shape:  'pill',
+                label:  'pay'
+            },
+
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                    amount: {
+                        value: '1.18'
+                    }
+                    }]
+                });
+            },
+
+            //capture the funds form the transaction..
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    orderPaiement()
+                    alert('Transaction completed by ' + details.payer.name.given_name); // show the successfully message of transaction
+                });
+            }
+        }).render('#paypal-button-container');
+
+</script>
+
+
+{% endblock %}

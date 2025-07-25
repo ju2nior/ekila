@@ -1,0 +1,58 @@
+
+name: website deployment
+on:
+  push:
+    branches:
+      - staging
+
+concurrency:
+  group: ${{ github.head_ref || github.run_id }}
+  cancel-in-progress: true
+
+jobs:
+  pre-commit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install pre-commit
+
+      - name: Run pre-commit
+        run: SKIP=pytest-check pre-commit run --all-files
+
+  deploy:
+    needs: pre-commit
+    runs-on: ubuntu-latest
+    steps:
+      - name: install ssh keys
+        run: |
+            install -m 600 -D /dev/null ~/.ssh/id_rsa
+            echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+            ssh-keyscan -v -p 5022 ${{ secrets.SSH_HOST }} > ~/.ssh/known_hosts 2>&1
+
+      - name: Start ssh-agent
+        run: |
+          eval $(ssh-agent -s)
+          ssh-add ~/.ssh/id_rsa
+
+      - name: Deploy virtual host on planethoster
+        run: |
+          ssh -o StrictHostKeyChecking=no -p 5022 ${{secrets.SSH_LOGIN}}@${{secrets.SSH_HOST}} << EOF
+            source /home/tgmszbpv/virtualenv/website/3.11/bin/activate && cd website
+            pip install -r requirements.txt
+            cp -f ekila/settings_prod_example.py ekila/settings_prod.py
+            git pull
+            make migrate
+          EOF
+
+      - name: cleanup
+        run: rm -rf ~/.ssh

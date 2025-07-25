@@ -1,0 +1,47 @@
+
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+    <div class="featured-post-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    <p style="text-align: center; margin-top:120px;font-size:large;"><strong>PROGRAMME D'EKILA RADIO</strong></p>
+                    {%if progs %}
+                    {% for fichier in  progs %}
+                        <div id="buttons" class="bpdf_wrapper" style="margin-bottom:10px;">
+                            <a class="btn btn-primary display-4"  target="pdf-frame" href="{{fichier.image.url}}">Voir en plein écran</a><br />
+                            <!--<iframe scrolling="auto" style="width:100%;" frameborder="0" width="21918.75%" height="2480" loading="lazy" src="{{fichier.image.url}}">-->
+                            <!--    Votre navigateur ne supporte pas ce média-->
+                            <!--</iframe>-->
+                            <img src="{{fichier.image.url}}" style="width:100%; margin-bottom:25px;">
+                        </div>
+                    {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-12 col-md-12 col-lg-12">
+                    {%if pubs %}
+                        <p style="text-align: center; margin-top:120px;font-size:large;"><strong>AFFICHE</strong></p>
+
+                    {% for fichier in  pubs %}
+                        <div id="buttons" class="bpdf_wrapper" style="margin-bottom:10px;">
+                            <a class="btn btn-primary display-4" target="framename" href="{{fichier.file.url}}">Voir en plein écran</a><br />
+                            <iframe scrolling="auto" frameborder="0" style="width:100%;" width="21918.75%" height="2480" loading="lazy" src="{{fichier.file.url}}">
+                                Votre navigateur ne supporte pas ce média
+                            </iframe>
+                        </div>
+                    {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

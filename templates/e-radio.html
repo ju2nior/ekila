@@ -1,0 +1,361 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="mt-4 mb-5 mt-lg-2">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <h2 class="text-black fs-4 text-center p-4 web-title">Vous écoutez sur MNLV Média -
+                    <span class="text-danger fw-bolder fs-4" data-id="radio-playing"></span>
+                </h2>
+            </div>
+            <div class="col-12 p-lg-4 mx-auto w-auto">
+                <div class="current-radio-meta-data">
+                    <img
+                            class="current-data-image rounded mx-auto border"
+                            src=""
+                            alt=""
+                            style="object-fit: cover;"
+                    >
+                    <div class="flex-shrink-0">
+                        <div class="title text-black text-center fs-3 fw-bold p-3"></div>
+                        <div class="artis-name text-black text-center text-uppercase f-5 font-weight-bolder"></div>
+                    </div>
+                </div>
+                <div class="mx-auto pt-4">
+                    <h5 class="text-black text-center fs-5 text-decoration-underline font-weight-bold">Partager sur </h5>
+                    <div class="medias">
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://mnlvm.com/e-radio/" title="Partager avec facebook" class="share" target="_blank">
+                            <svg
+                                    class="svg-inline--fa fa-facebook"
+                                    aria-hidden="true"
+                                    focusable="false"
+                                    data-prefix="fab"
+                                    data-icon="facebook"
+                                    role="img"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 512 512"
+                                    height="32"
+                                    width="32"
+                                    data-fa-i2svg=""
+                            >
+                                <path fill="#2f2384" d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"></path>
+                            </svg>
+                        </a>
+                        <a href="https://twitter.com/home?status=https://mnlvm.com/e-radio/" target="_blank" title="Partager avec X" class="share">
+                            <svg class="svg-inline--fa fa-x-twitter"  height="30"
+                                 width="30" aria-hidden="true" focusable="false" data-prefix="fab" data-icon="x-twitter" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                <path fill="#000" d="M389.2 48h70.6L305.6 224.2 487 464H345L233.7 318.6 106.5 464H35.8L200.7 275.5 26.8 48H172.4L272.9 180.9 389.2 48zM364.4 421.8h39.1L151.1 88h-42L364.4 421.8z"></path>
+                            </svg>
+                        </a>
+                        <a href="mailto:?subject=MNLV Media - Web radios&body=https://mnlvm.com/e-radio/" target="_blank" title="Partager avec Email" class="share">
+                            <svg class="svg-inline--fa fa-at" height="30" width="30" aria-hidden="true" focusable="false" data-prefix="fas" data-icon="at" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" data-fa-i2svg="">
+                                <path fill="#000" d="M256 64C150 64 64 150 64 256s86 192 192 192c17.7 0 32 14.3 32 32s-14.3 32-32 32C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256l0 32c0 53-43 96-96 96c-29.3 0-55.6-13.2-73.2-33.9C320 371.1 289.5 384 256 384c-70.7 0-128-57.3-128-128s57.3-128 128-128c27.9 0 53.7 8.9 74.7 24.1c5.7-5 13.1-8.1 21.3-8.1c17.7 0 32 14.3 32 32l0 80 0 32c0 17.7 14.3 32 32 32s32-14.3 32-32l0-32c0-106-86-192-192-192zm64 192a64 64 0 1 0 -128 0 64 64 0 1 0 128 0z"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="col-12 mt-4">
+                <p class="wer-title fs-2 text-black fw-bold text-center">Nos webradios</p>
+                <div id="web-radio-container"></div>
+
+                <!-- Pagination -->
+                <div class="paginate" id="pagination-container">
+                    <div id="items"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<script type="module">
+    import {
+        currentMainRadio,
+        currentRadioMetaData,
+        fetchMainRadioList,
+        fetchRadioByName,
+        paginationOptions,
+    } from "/static/js/api.js";
+    import {
+        DEFAULT_COVER,
+        RECORDS_PER_PAGE,
+        PAGINATION_ITEM_DISPLAYED,
+        PAGINATION_LIMIT_BEFORE_INCREMENTATION,
+        WEB_RADIO_BASE_URL,
+        PWA_BASE_URL,
+    } from "/static/js/constants.js";
+
+    const setCurrentRadio = (metaData) => {
+        document.querySelector(".title").textContent = metaData.current_track?.title || "Pas de titre";
+        document.querySelector(".artis-name").textContent =
+            metaData.current_track?.artist_name || "Artiste inconnue";
+
+        const image = document.querySelector(".current-radio-meta-data img");
+        image.src = metaData.current_track?.cover || metaData.radio_cover || DEFAULT_COVER;
+        image.title = metaData.current_track?.title || metaData.radio_name;
+    };
+
+    currentRadioMetaData.subscribe((metaData) =>  {
+        if (!metaData.id) return;
+        setCurrentRadio(metaData);
+    });
+
+    const currentRadioInDom = document.querySelector("[data-id='radio-playing']");
+    currentMainRadio.subscribe((mainRadio) =>  {
+        currentRadioInDom.textContent = mainRadio.name;
+
+        document.querySelector(`[data-id='web-radio-${mainRadio.name}']`)
+            ?.classList.add("current-web-radio");
+    });
+
+    const removeSelectionOnOldRadio = (name) => {
+        document.querySelector(`[data-id='web-radio-${name}']`)
+            .classList.remove("current-web-radio");
+    };
+
+    const createWebRadio = (coverUrl, name) => {
+        const webradio = document.createElement("div");
+        webradio.dataset.id = "web-radio-"+name;
+
+        //Download icon
+        const downloadIcon = document.createElement("a");
+        downloadIcon.href = PWA_BASE_URL + name;
+        downloadIcon.target = "__blank";
+        downloadIcon.title = `Télécharger ${name}`;
+        downloadIcon.className = "download";
+        const icon = document.createElement("img");
+        icon.src = "https://api.iconify.design/ic:outline-file-download.svg";
+        downloadIcon.appendChild(icon);
+
+        //Copy webradio url
+        const copyUrlIcon = document.createElement("button");
+        copyUrlIcon.addEventListener("click", (event) => {
+            event.stopImmediatePropagation();
+            event.preventDefault();
+
+            navigator.clipboard.writeText(PWA_BASE_URL + name);
+        });
+        copyUrlIcon.href = PWA_BASE_URL + name;
+        copyUrlIcon.title = `Copy link ${name}`;
+        copyUrlIcon.className = "copy";
+        const copyIcon = document.createElement("img");
+        copyIcon.src = "https://api.iconify.design/material-symbols-light:file-copy-rounded.svg";
+        copyUrlIcon.appendChild(copyIcon);
+
+        if (currentMainRadio.value?.name === name) {
+            webradio.className = "web-radio current-web-radio";
+        } else  {
+            webradio.className = "web-radio";
+        }
+
+        const cover = document.createElement("img");
+        cover.src = coverUrl;
+        cover.title = `Jouer ${name}`;
+
+        const title = document.createElement("p");
+        title.textContent = name;
+        title.className = "text-black fw-bolder text-uppercase text-center";
+
+        webradio.appendChild(downloadIcon);
+        webradio.appendChild(copyUrlIcon);
+
+        webradio.appendChild(cover);
+        webradio.appendChild(title);
+
+        webradio.addEventListener("click", async (event) => {
+            event.stopImmediatePropagation();
+
+            const oldRadioName = currentMainRadio.value.name;
+            currentMainRadio.value = await fetchRadioByName(name);
+
+            removeSelectionOnOldRadio(oldRadioName);
+        });
+        return webradio;
+    }
+
+    const stylistPage = (page) => {
+        document.querySelector(`[data-id='page-${page}']`).classList.add("current-page");
+    }
+
+    const unStylistPage = (page) => {
+        document.querySelector(`[data-id='page-${page}']`).classList.remove("current-page");
+    }
+
+    const createPaginationNextButtonIfNotExist = (pageUrl) => {
+        const button = document.createElement("button");
+        button.title = "Next page";
+        button.innerHTML = "<span>Prochain</span> <span>&#8594;</span>";
+        button.className = "page-btn";
+        button.dataset.id = "next-page";
+
+        button.addEventListener("click", async function (event) {
+            event.stopImmediatePropagation();
+
+            const currentPageLabel = paginationOptions.value.currentPage + 1;
+            const currentPageIndex = paginationOptions.value.currentPage + 1;
+            const nextPageLabel = currentPageLabel + 1;
+
+            unStylistPage(currentPageIndex);
+            await updateWebRadioOnPage(pageUrl, currentPageIndex);
+            stylistPage(nextPageLabel);
+        });
+
+        const nextPageButton = document.querySelector("[data-id='next-page']");
+        if (nextPageButton) {
+            nextPageButton.replaceWith(button);
+        }
+        return button;
+    };
+
+    const createPaginationPreviousButtonIfNotExist = (pageUrl) => {
+        const button = document.createElement("button");
+        button.title = "Next page";
+        button.innerHTML = "<span>&#8592;</span> <span>Précédent</span>";
+        button.className = "page-btn";
+        button.dataset.id = "previous-page";
+
+        button.addEventListener("click", async function (event) {
+            event.stopImmediatePropagation();
+
+            const currentPageLabel = paginationOptions.value.currentPage + 1;
+            const currentPageIndex = paginationOptions.value.currentPage - 1;
+            const previousPageLabel = currentPageLabel - 1;
+
+            unStylistPage(currentPageLabel);
+            await updateWebRadioOnPage(pageUrl, currentPageIndex);
+            stylistPage(previousPageLabel);
+        });
+
+        const previousPageButton = document.querySelector("[data-id='previous-page']");
+        if (previousPageButton) {
+            previousPageButton.replaceWith(button);
+        }
+        return button;
+    };
+
+    const createPaginationPage = (pageUrl, pageNumber, isCurrentPage) => {
+        const page = document.createElement("button");
+        page.textContent = pageNumber;
+        page.dataset.id = "page-"+pageNumber;
+
+        if (isCurrentPage) {
+            page.className = "page current-page";
+        } else  {
+            page.className = "page";
+        }
+
+        page.addEventListener("click", async function (event) {
+            event.stopImmediatePropagation();
+
+            const currentPage = paginationOptions.value.currentPage + 1;
+            if (currentPage === pageNumber) return;
+
+            unStylistPage(currentPage);
+            await updateWebRadioOnPage(pageUrl, pageNumber - 1);
+            stylistPage(pageNumber);
+        });
+
+        return page;
+    };
+
+    const webRadioContainer = document.querySelector("#web-radio-container");
+    const noWebRadioMessage = document.createElement("div");
+    const updateWebRadioOnPage = async (urlToPage, page = 0) => {
+        const mainRadioList = await fetchMainRadioList(urlToPage);
+
+        paginationOptions.value = {
+            currentPage: page,
+            total: mainRadioList.count,
+            next: mainRadioList.next,
+            previous: mainRadioList.previous,
+        }
+
+        if (!mainRadioList.count) {
+            noWebRadioMessage.className = "no-web-radio";
+            noWebRadioMessage.textContent = "Pas de web radio pour le moment";
+
+            webRadioContainer.appendChild(noWebRadioMessage);
+            return;
+        }
+
+        webRadioContainer.innerHTML = "";
+        mainRadioList.results.forEach((radio) => {
+            const webRadio = createWebRadio(radio.radio_cover, radio.name);
+            webRadioContainer.appendChild(webRadio);
+        });
+    }
+
+    const getAllMainRadiosForFirstPage = async () => {
+        await updateWebRadioOnPage(paginationOptions.value.next, 0);
+    }
+
+    const paginationContainer = document.querySelector("#pagination-container");
+    const paginationItemsContainer = paginationContainer.querySelector("#items");
+    paginationOptions.subscribe((options) => {
+        const { total, currentPage } = options;
+        if (!total) return;
+
+        if (total <= RECORDS_PER_PAGE) return;
+
+        const numberOfPage = Math.ceil(total / RECORDS_PER_PAGE);
+        if (numberOfPage < 2) {
+            const isCurrent = true;
+            createPaginationPage("" ,1 ,isCurrent);
+        }
+
+        const pageUrlList = [];
+        for (let page = 0; page < numberOfPage; page++) {
+            pageUrlList.push(`${WEB_RADIO_BASE_URL}/?limit=${RECORDS_PER_PAGE}&offset=${RECORDS_PER_PAGE * page}`);
+        }
+
+        const actualCurrentPage = currentPage + 1;
+        const difference = actualCurrentPage - PAGINATION_LIMIT_BEFORE_INCREMENTATION;
+        let INCREMENTATION_INTERVAL = difference + 1 <= 0 ? 0 : difference;
+
+        let limit = numberOfPage < PAGINATION_ITEM_DISPLAYED
+            ? numberOfPage
+            : PAGINATION_ITEM_DISPLAYED + INCREMENTATION_INTERVAL;
+
+        if (limit > numberOfPage) {
+            limit = numberOfPage;
+        }
+
+        if (numberOfPage === limit) {
+            const interval = numberOfPage - PAGINATION_ITEM_DISPLAYED + PAGINATION_LIMIT_BEFORE_INCREMENTATION - 1;
+            INCREMENTATION_INTERVAL = interval < 0 ? 0 : interval;
+        }
+
+        paginationItemsContainer.innerHTML = "";
+        for (
+            let pageIndex = INCREMENTATION_INTERVAL;
+            pageIndex < limit;
+            pageIndex++
+        ) {
+            const paginationItem = createPaginationPage(
+                pageUrlList[pageIndex],
+                pageIndex + 1,
+                currentPage === pageIndex
+            );
+            paginationItemsContainer.appendChild(paginationItem);
+        }
+
+        if (actualCurrentPage !== 1) {
+            const previousButton = createPaginationPreviousButtonIfNotExist(pageUrlList[currentPage - 1]);
+            paginationContainer.insertAdjacentElement("afterbegin", previousButton);
+        } else  {
+            document.querySelector("[data-id='previous-page']")?.remove();
+        }
+
+        if (actualCurrentPage !== numberOfPage) {
+            const nextButton = createPaginationNextButtonIfNotExist(pageUrlList[actualCurrentPage]);
+            paginationContainer.insertAdjacentElement("beforeend", nextButton);
+        } else  {
+            document.querySelector("[data-id='next-page']")?.remove();
+        }
+    });
+
+    getAllMainRadiosForFirstPage();
+</script>
+{% endblock %}

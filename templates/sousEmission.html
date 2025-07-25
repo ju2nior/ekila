@@ -1,0 +1,102 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+
+<section class="content7 cid-sKTczl36PL" id="content7-1p">
+
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-10">
+                <blockquote>
+                <h5 class="mbr-section-title mbr-fonts-style mb-2 display-2"><strong>Revivez nos dernières émissions</strong></h5>
+                <p class="mbr-text mbr-fonts-style display-4"></p></blockquote>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKTiXGPhnh" id="content4-2c">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="content4 cid-sKThDvlxdR" id="content4-28">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-4 display-2"><strong>Émissions</strong></h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery2 cid-sKTdxcIWMy" id="gallery2-1w">
+    <div class="container">
+        <div class="row mt-4">
+        {% for em in sEmission %}
+            <div class="item features-image сol-12 col-md-6 col-lg-3">
+                <div class="item-wrapper">
+                    <div class="item-img">
+                        <a href="{% url 'sous-emissionSelected' em.id %}">
+                            <img src="{{ em.image.url }}" alt="no image" height="125" width="253">
+                        </a>
+                    </div>
+                      <h4 style="margin-top:8px;"> <a href="{% url 'sous-emissionSelected' em.id %}"> {{ em.titre }} </a> </h4>
+                </div>
+            </div>
+        {% endfor %}
+
+        </div>
+
+            <div class="row mt-4">
+                <div class="col-12 col-md-12 col-lg-12 align-items-center">
+                {% if  sEmission.has_other_pages %}
+                    <ul class='pagination'>
+                        {% if  sEmission.has_previous %}
+                            <li class="page-item" >
+                                <a class="page-link" href="?page={{ sEmission.previous_page_number }}"></a>
+                            </li>
+                        {% else %}
+                            <li class='disabled page-item'>
+                                <span class="page-link">&laquo;</span>
+                            </li>
+                        {% endif %}
+
+                        {% for r in sEmission.paginator.page_range %}
+                            {% if  sEmission.number == r %}
+                                <li class='active page-item'>
+                                    <span class="page-link">{{r}} <span class='sr-only'>(current)</span></span>
+                                </li>
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="?page={{r}}">{{r}}</a>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if  sEmission.has_next %}
+                             <li class="page-item">
+                                <a class="page-link" href="?page={{  sEmission.next_page_number }}">&raquo;</a>
+                            </li>
+                        {% else %}
+                            <li  class='disabled page-item'>
+                                <span class="page-link">&raquo;</span>
+                            </li>
+                        {% endif %}
+                {% endif %}
+                    </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}

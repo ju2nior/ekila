@@ -1,0 +1,55 @@
+{% extends "tarif/dashboard_base.html" %}
+
+{% block dashboard_content %}
+<div class="container mt-4">
+    <h2>Détails de la Commande #{{ commande.id_commande }}</h2>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Informations du Client</h5>
+            <p><strong>Nom du Client :</strong> {{ commande.nom_client }}</p>
+            <p><strong>Email :</strong> {{ commande.email }}</p>
+            <p><strong>Téléphone :</strong> {{ commande.telephone }}</p>
+        </div>
+    </div>
+
+    <div class="card mt-3">
+        <div class="card-body">
+            <h5 class="card-title">Informations de la Commande</h5>
+            <p><strong>Type de Paiement :</strong> {{ commande.type_paiement }}</p>
+            <p><strong>Montant Total :</strong> {{ commande.montant_total }} FCFA</p>
+            <p><strong>Statut :</strong> {% if commande.statut %} ✅ Payée {% else %} ❌ Non Payée {% endif %}</p>
+            <p><strong>Confirmation du Paiement :</strong>
+                {% if commande.paiement_confirme %}
+                    <span class="badge badge-success">Confirmé</span>
+                {% else %}
+                    <span class="badge bg-warning">En attente</span>
+                {% endif %}
+            </p>
+            <p><strong>Date de la Commande :</strong> {{ commande.date_commande }}</p>
+            <p><strong>Numéro de Transaction :</strong>
+                {% if commande.numero_transaction %}
+                    <span class="text-primary">{{ commande.numero_transaction }}</span>
+                {% else %}
+                    <span class="text-danger">Non renseigné</span>
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'liste_commandes' %}" class="btn btn-secondary">Retour à la liste</a>
+
+        {% if not commande.paiement_confirme %}
+            <form method="post" action="{% url 'confirmer_paiement' commande.id %}" class="d-inline">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="numero_transaction">Numéro de Transaction</label>
+                    <input type="text" name="numero_transaction" id="numero_transaction" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-success mt-2">Confirmer le Paiement</button>
+            </form>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

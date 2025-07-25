@@ -1,0 +1,150 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+/* Déclaration des variables CSS */
+:root {
+    --primary-color: #040458;
+    --secondary-color: #dc2626;
+    --text-color: #333;
+    --light-bg: #f9f9f9;
+}
+
+/* Conteneur global de la section */
+#mnlv-media-section {
+    padding: 40px 20px;
+    background-color: var(--light-bg);
+}
+
+/* Mise en page en deux colonnes */
+.two-column-layout {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 40px;
+    flex-wrap: wrap;
+}
+
+/* Section image (gauche) */
+.left-content {
+    flex: 0.8;
+    max-width: 35%;
+    text-align: center;
+}
+.left-image {
+    width: 100%;
+    max-height: 250px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Section texte (droite) */
+.right-content {
+    flex: 1.5;
+    max-width: 65%;
+    padding-left: 20px;
+}
+
+/* Titre principal */
+.main-heading {
+    font-size: 2.8rem;
+    color: var(--primary-color);
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Ligne principale sous le titre */
+.tagline {
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+    margin-bottom: 15px;
+}
+
+/* Paragraphe de description */
+#mnlv-media-section .description,
+#mnlv-media-section p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--text-color);
+    margin-bottom: 20px;
+}
+
+/* Style pour les sous-titres */
+#mnlv-media-section .section-title {
+    font-size: 1.6rem;
+    color: var(--secondary-color);
+    margin-top: 30px;
+    margin-bottom: 15px;
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 12px;
+}
+
+/* Styles responsifs */
+@media (max-width: 1024px) {
+    .left-content {
+        max-width: 45%;
+    }
+    .left-image {
+        max-height: 220px;
+    }
+}
+
+@media (max-width: 768px) {
+    /* Passage en mode colonne */
+    .two-column-layout {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .left-content {
+        max-width: 100%;
+    }
+
+    .left-image {
+        max-height: 180px;
+    }
+
+    .right-content {
+        padding: 0;
+    }
+}
+</style>
+
+<section id="mnlv-media-section">
+    <div class="container">
+        <div class="two-column-layout">
+            <!-- Section gauche : Image -->
+            <div class="left-content">
+                <img src="/static/images/Illustration.webp" alt="Illustration Média" class="left-image">
+            </div>
+
+            <!-- Section droite : Texte -->
+            <div class="right-content">
+
+         {% if propos %}
+              {{ propos.texte | safe | linebreaks }}
+         {% else %}
+                <h1 class="main-heading">Bienvenue sur MNLV Média</h1>
+                <p class="tagline">Votre plateforme multimédia complète et incontournable.</p>
+
+                <p class="description">
+                    Plongez dans un monde où l'audio et la vidéo se rencontrent pour offrir une expérience riche et variée. Découvrez une multitude de contenus : webradio, podcasts, vidéos exclusives, émissions TV et bien plus encore, accessibles 24h/24, 7j/7.
+                </p>
+
+                <h2 class="section-title">Une Expérience Audio Unique</h2>
+                <p>Avec MNLV Média, vivez une expérience musicale inédite, où chaque instant est rythmé par des genres musicaux pour tous les goûts et toutes les générations.</p>
+
+                <h2 class="section-title">Des Radios Thématiques Pour Tous</h2>
+                <p>Avec plus de 160 radios thématiques accessibles à tout moment, trouvez votre bonheur que vous soyez passionné de gospel, jazz, musique urbaine ou autres.</p>
+
+                <h2 class="section-title">Accessible Partout</h2>
+                <p>Grâce à notre Progressive Web App (PWA), accédez à MNLV Média sur tous vos appareils, partout et sans aucune installation.</p>
+        {% endif %}
+
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}

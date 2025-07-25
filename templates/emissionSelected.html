@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% comment %} <div class="popular-news-area section-padding-20-20" style="margin-top:20px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-lg-12">
+                <div class="single-blog-post style-2">
+                    <div class="post-thumb">
+                        <img src="{{ emission.image.url }}" alt="no image" width="1200" height="950" style="margin-top:80px;" class="rounded img-fluid">
+                    </div>
+                    <div class="post-data">
+                        <h3 href="#" class="post-catagory">{{ emission.titre }} {{ emission.presentateur }}</h3>
+                        <div class="col-12 col-md-12">
+                            <p class="mb-4"> {{ emission.description | safe | linebreaks  }} </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> {% endcomment %}
+
+        <div class="featured-post-area">
+            <div class="container">
+                <div class="row" style="margin-top:70px;">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="section-heading">
+                            <h6>Détails sur l'émission</h6>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:-10%">
+                    <div class="col-12 col-md-12 col-lg-12">
+                        <div class="single-blog-post featured-post">
+                            <div class="post-thumb">
+                                <img src="{{emission.image.url}}"  width="1200" height="1110"  style="margin-top:70px;">
+                            </div>
+                            <div class="post-data">
+                                <h2 style="font-family: 'Times New Roman', Times, serif;">
+                                    <a href="#"> {{emission.titre}} presenté(s) par {{ emission.presentateur  }}</a>
+                                </h2>
+                                <p class="mb-4 " style="text-indent:45px; font-size:1.2em; margin-top:20px;font-family: 'Times New Roman', Times, serif;">
+                                    {{ emission.description | safe | linebreaks  }}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    {% endblock %}

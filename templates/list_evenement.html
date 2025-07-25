@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+
+<h2 style="text-align:center; margin: 30px 0;">🖼️ Événements en vedette</h2>
+
+<div class="swiper mySwiper">
+  <div class="swiper-wrapper">
+    {% for evenement in evenements %}
+      <div class="swiper-slide">
+        <div style="background: #fff; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); padding: 20px; text-align: center;">
+          {% if evenement.image %}
+            <img src="{{ evenement.image.url }}" alt="{{ evenement.title }}" style="width: 100%; max-height: 300px; object-fit: cover; border-radius: 8px;">
+          {% endif %}
+          <h4>{{ evenement.title }}</h4>
+          <p>{{ evenement.intitule }}</p>
+          <p><strong>Lieu :</strong> {{ evenement.localisation }}</p>
+          <p><strong>Heure :</strong> {{ evenement.heur|time:"H:i" }}</p>
+          <p><strong>Places :</strong> {{ evenement.nb_place }} / Réservées : {{ evenement.nb_tickets }}</p>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+  <div class="swiper-pagination"></div>
+</div>
+
+<script>
+  new Swiper(".mySwiper", {
+    slidesPerView: 1,
+    spaceBetween: 30,
+    loop: true,
+    pagination: {
+      el: ".swiper-pagination",
+      clickable: true,
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    breakpoints: {
+      768: {
+        slidesPerView: 2,
+      },
+      1024: {
+        slidesPerView: 3,
+      }
+    }
+  });
+</script>
+{% endblock %}

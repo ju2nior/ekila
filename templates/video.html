@@ -1,0 +1,156 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<style>
+    .page-link {
+        background-color: black;
+        color: white;
+    }
+</style>
+
+<section class="videos" id="content7-1p">
+    <div class="container-fluid my-4">
+        <h2 class="text-black text-center title">Jouez toutes vos videos inédites</h2>
+    </div>
+</section>
+
+<section class="mnlv-music">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="col-md-12 col-lg-10">
+                <h3 class="mb-4 display-2">Videos provenant de MNLV Music</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- {% if ekila_musique_videos %} -->
+<section>
+    <div class="container-fluid">
+        <div class="row justify-content-center gap-4 mt-4 mt-xl-5">
+            {% for video in  ekila_musique_videos %}
+
+                {% if video.video_url %}
+                    <div class="item features-image сol-4 col-md-5 col-xl-5">
+                        <iframe width="400" height="300" src="{{ video.video_url }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <a href="{% url 'miscellaneous:video-detail' slug=video.slug %}"> <h3 style="margin-top:5px;" class="video-title">{{ video.title }}</h3> </a>
+                    </div>
+
+                {% else %}
+                    <div class="item features-image сol-4 col-md-5 col-xl-5">
+                        <iframe src="{{ video.video_file }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <a href="{% url 'miscellaneous:video-detail' slug=video.slug %}"> <h3 style="margin-top:5px;" class="video-title">{{ video.title }}</h3> </a>
+                    </div>
+                {% endif %}
+
+            {% endfor %}
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if ekila_musique_videos.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="?page_musique={{ ekila_musique_videos.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link text-dark">
+                                Page {{ ekila_musique_videos.number }} sur {{ ekila_musique_videos.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if ekila_musique_videos.has_next %}
+                        <li class="page-item">
+                            <a class="page-link text-dark" href="?page_musique={{ekila_musique_videos.next_page_number }}" aria-label="Next">
+                                <span aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+</section>
+<!-- {% else %}
+
+<div class="no-data">Aucune videos disponible provenant de MNLV Music pour le momment</div>
+
+{% endif %} -->
+
+
+<section class="mnlv-radio" id="content4-28">
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="title col-md-12 col-lg-10">
+                <h3 class="mb-4 display-2">Videos provenant de MNLV Radio</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="gallery2 cid-sKTdxcIWMy" id="gallery2-1w">
+    <div class="container-fluid">
+        <div class="row justify-content-center gap-4 mt-4 mt-xl-5">
+
+            {% for video in  ekila_radio_videos %}
+
+            {% if video.video_url %}
+                <div class="item features-image сol-4 col-md-5 col-xl-5">
+                    <iframe width="400" height="300" src="{{ video.video_url }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <a href="{% url 'miscellaneous:video-detail' slug=video.slug %}"> <h3 style="margin-top:5px;" class="video-title">{{ video.title }}</h3> </a>
+                </div>
+
+            {% else %}
+                <div class="item features-image сol-4 col-md-5 col-xl-5">
+                    <iframe width="400" height="300" src="{{ video.video_file }}" title="{{ video.title }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <a href="{% url 'miscellaneous:video-detail' slug=video.slug %}"> <h3 style="margin-top:5px;" class="video-title">{{ video.title }}</h3> </a>
+                </div>
+             {% endif %}
+
+        {% endfor %}
+
+        </div>
+
+        <div class="row justify-content-center">
+            <div class="col-12">
+                <nav aria-label="Page navigation">
+                    <ul class="pagination justify-content-center">
+                        {% if ekila_radio_videos.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page_radio={{ ekila_radio_videos.previous_page_number }}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo; précédent</span>
+                            </a>
+                        </li>
+                        {% endif %}
+
+                        <li class="page-item disabled">
+                            <span class="page-link text-dark">
+                                Page {{ ekila_radio_videos.number }} sur {{ ekila_radio_videos.paginator.num_pages }}
+                            </span>
+                        </li>
+
+                        {% if ekila_radio_videos.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page_radio={{ekila_radio_videos.next_page_number }}" aria-label="Next">
+                                <span class="text-dark" aria-hidden="true">suivant &raquo;</span>
+                            </a>
+                        </li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
