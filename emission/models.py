@@ -82,15 +82,65 @@ class FridayEditorial(models.Model):
         return (self.dateline - self.created_at).days
 
 
+
+
 class Poadcast(models.Model):
-    title = models.CharField(_("Titre du poadcast"), max_length=200)
-    image = models.FileField(upload_to="poadcast/images/", blank=True)
-    audio = models.FileField(upload_to="poadcast/audio/", blank=False)
-    created_at = models.DateField(auto_now=True)
-    audio_url = models.URLField(blank=True)
+    CATEGORIES = [
+        ("education", "Éducation"),
+        ("societe", "Société"),
+        ("actualite", "Actualité & Politique"),
+        ("business", "Business & Entrepreneuriat"),
+        ("culture", "Culture & Art"),
+        ("developpement", "Développement personnel"),
+        ("crime", "True Crime & Enquêtes"),
+        ("fiction", "Fiction & Histoire"),
+        ("technologie", "Technologie & Gaming"),
+        ("humour", "Humour & Divertissement"),
+        ("relations", "Relations & Famille"),
+        ("autre", "Autre"),
+    ]
+
+    title = models.CharField(_("Titre du podcast"), max_length=200)
+    intitule = models.CharField(_("Sous-titre ou résumé du podcast"), max_length=300, blank=True)
+    auteur = models.CharField(_("Auteur du podcast"), max_length=100,  default="Inconnu")
+    categorie = models.CharField(
+        _("Catégorie du podcast"),
+        max_length=50,
+        choices=CATEGORIES,
+        default="autre"
+    )
+    fichier = models.FileField(_("Fichier audio ou vidéo"), upload_to="podcast/fichiers/", blank=True, null=True)
+    image = models.ImageField(_("Image de couverture"), upload_to="podcast/images/", blank=True)
+    audio_url = models.URLField(_("Lien externe (optionnel)"), blank=True)
+    created_at = models.DateField(_("Date de création"), auto_now=True)
 
     class Meta:
-        ordering = ["title"]
+        ordering = ["-created_at"]
+        verbose_name = "Podcast"
+        verbose_name_plural = "Podcasts"
 
     def __str__(self):
         return self.title
+    
+
+class Episode(models.Model):
+    podcast = models.ForeignKey(Poadcast, related_name="episodes", on_delete=models.CASCADE)
+    title = models.CharField(_("Titre de l'épisode"), max_length=200)
+    auteur = models.CharField(_("Auteur"), max_length=150)
+    audio_url = models.URLField(_("URL de l'audio"), blank=True)
+    fichier = models.FileField(_("Fichier audio/vidéo"), upload_to="poadcast/episodes/")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ["-created_at"]
+
+    def __str__(self):
+        return f"{self.title} (épisode de {self.podcast.title})"
+
+    def get_categorie(self):
+        return self.podcast.categorie
+
+    def get_intitule(self):
+        return self.podcast.intitule
+
+
