@@ -1,5 +1,5 @@
 from rest_framework import serializers
-
+from .models import Episode
 from emission.models import Emission
 from emission.models import FridayEditorial
 from emission.models import Poadcast
@@ -30,3 +30,13 @@ class PoadcastSerializer(serializers.ModelSerializer):
     class Meta:
         model = Poadcast
         fields = "__all__"
+
+
+
+class EpisodeSerializer(serializers.ModelSerializer):
+    categorie = serializers.CharField(source='podcast.categorie', read_only=True)
+    intitule = serializers.CharField(source='podcast.intitule', read_only=True)
+
+    class Meta:
+        model = Episode
+        fields = ['id', 'title', 'auteur', 'audio_url', 'fichier', 'created_at', 'categorie', 'intitule']

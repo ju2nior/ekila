@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from .models import Episode 
 from emission.models import Emission
 from emission.models import FridayEditorial
 from emission.models import Poadcast
@@ -51,3 +52,11 @@ class PoadcastAdmin(admin.ModelAdmin):
 
     class Media:
         js = ("js/tiny.js",)
+
+
+
+@admin.register(Episode)
+class EpisodeAdmin(admin.ModelAdmin):  
+    list_display = ("podcast", "title", "auteur", "audio_url", "fichier","created_at")  
+    search_fields = ("title", "auteur")
+
