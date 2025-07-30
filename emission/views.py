@@ -5,10 +5,10 @@ from django.utils.translation import gettext_lazy as _
 from django.views.generic import DetailView
 from django.views.generic import ListView
 from rest_framework import viewsets
-from .serializers import EpisodeSerializer
+from .serializers import EpisodeSerializer, CategorieSerializer
 from emission.models import Emission
 from emission.models import FridayEditorial
-from emission.models import Poadcast, Episode
+from emission.models import Poadcast, Episode, Categorie
 from emission.models import SubEmission
 from emission.serializers import EmissionSerializer
 from emission.serializers import FridayEditorialSerializer
@@ -95,11 +95,16 @@ class FridayEditorialViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = FridayEditorial.objects.all()
     serializer_class = FridayEditorialSerializer
 
-
 class PoadcastViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Poadcast.objects.all().order_by("-created_at")
+  
+    queryset = Poadcast.objects.select_related("categorie").all().order_by("-created_at")
     serializer_class = PoadcastSerializer
 
+
+class CategorieViewSet(viewsets.ReadOnlyModelViewSet):
+    
+    queryset = Categorie.objects.all().order_by("nom")
+    serializer_class = CategorieSerializer
 
 
 class EpisodeViewSet(viewsets.ReadOnlyModelViewSet):

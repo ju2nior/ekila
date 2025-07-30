@@ -4,6 +4,7 @@ from emission.models import Emission
 from emission.models import FridayEditorial
 from emission.models import Poadcast
 from emission.models import SubEmission
+from emission.models import Categorie
 
 
 class EmissionSerializer(serializers.ModelSerializer):
@@ -31,6 +32,12 @@ class PoadcastSerializer(serializers.ModelSerializer):
         model = Poadcast
         fields = "__all__"
 
+
+
+class CategorieSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Categorie
+        fields = ['id', 'nom']
 
 
 class EpisodeSerializer(serializers.ModelSerializer):

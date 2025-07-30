@@ -82,33 +82,29 @@ class FridayEditorial(models.Model):
         return (self.dateline - self.created_at).days
 
 
+class Categorie(models.Model):
+        nom = models.CharField(_("Nom de la catégorie"), max_length=100, unique=True)
 
+        class Meta:
+            verbose_name = "Catégorie"
+            verbose_name_plural = "Catégories"
+
+        def __str__(self):
+            return self.nom
 
 class Poadcast(models.Model):
-    CATEGORIES = [
-        ("education", "Éducation"),
-        ("societe", "Société"),
-        ("actualite", "Actualité & Politique"),
-        ("business", "Business & Entrepreneuriat"),
-        ("culture", "Culture & Art"),
-        ("developpement", "Développement personnel"),
-        ("crime", "True Crime & Enquêtes"),
-        ("fiction", "Fiction & Histoire"),
-        ("technologie", "Technologie & Gaming"),
-        ("humour", "Humour & Divertissement"),
-        ("relations", "Relations & Famille"),
-        ("autre", "Autre"),
-    ]
-
     title = models.CharField(_("Titre du podcast"), max_length=200)
     intitule = models.CharField(_("Sous-titre ou résumé du podcast"), max_length=300, blank=True)
     auteur = models.CharField(_("Auteur du podcast"), max_length=100,  default="Inconnu")
-    categorie = models.CharField(
-        _("Catégorie du podcast"),
-        max_length=50,
-        choices=CATEGORIES,
-        default="autre"
+    
+    categorie = models.ForeignKey(
+        "Categorie",
+        verbose_name=_("Catégorie du podcast"),
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True
     )
+
     fichier = models.FileField(_("Fichier audio ou vidéo"), upload_to="podcast/fichiers/", blank=True, null=True)
     image = models.ImageField(_("Image de couverture"), upload_to="podcast/images/", blank=True)
     audio_url = models.URLField(_("Lien externe (optionnel)"), blank=True)
@@ -121,7 +117,7 @@ class Poadcast(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 
 class Episode(models.Model):
     podcast = models.ForeignKey(Poadcast, related_name="episodes", on_delete=models.CASCADE)

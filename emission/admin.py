@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Episode 
 from emission.models import Emission
 from emission.models import FridayEditorial
-from emission.models import Poadcast
+from emission.models import Poadcast, Categorie
 from emission.models import SubEmission
 
 
@@ -52,6 +52,12 @@ class PoadcastAdmin(admin.ModelAdmin):
 
     class Media:
         js = ("js/tiny.js",)
+
+@admin.register(Categorie)
+class CategorieAdmin(admin.ModelAdmin):
+    list_display = ("nom",)
+    search_fields = ("nom",)
+    ordering = ("nom",)
 
 
 
