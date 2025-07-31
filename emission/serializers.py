@@ -42,8 +42,8 @@ class CategorieSerializer(serializers.ModelSerializer):
 
 class EpisodeSerializer(serializers.ModelSerializer):
     categorie = serializers.CharField(source='podcast.categorie', read_only=True)
-    intitule = serializers.CharField(source='podcast.intitule', read_only=True)
+    poadcast_id = serializers.CharField(source='poadcast.id', read_only=True)
 
     class Meta:
         model = Episode
-        fields = ['id', 'title', 'auteur', 'audio_url', 'fichier', 'created_at', 'categorie', 'intitule']
+        fields = ['id', 'title', 'auteur','image', 'audio_url', 'fichier', 'created_at', 'categorie', 'poadcast_id']

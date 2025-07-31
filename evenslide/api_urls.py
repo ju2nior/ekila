@@ -9,7 +9,7 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 
 router = DefaultRouter()
-router.register(r'evenements', EvenementViewSet)
+router.register(r'evenements', EvenementViewSet, basename="evenement")
 
 
 schema_view = get_schema_view(
@@ -30,10 +30,7 @@ urlpatterns = [
     
     path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='swagger-ui'),
     path('docs/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='redoc'),
-    
-    
     path('', include(router.urls)),  
 
-    path('token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+  
 ]

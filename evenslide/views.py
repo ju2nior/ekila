@@ -1,13 +1,13 @@
 from django.contrib import messages
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
-from functools import wraps
-from django.http import HttpResponseForbidden, JsonResponse
+from django.http import  JsonResponse
 from .models import *
 from .forms import *
 from rest_framework import viewsets
 from .serializers import EvenementSerializer
-from rest_framework.permissions import IsAuthenticated
+from drf_yasg.utils import swagger_auto_schema
+from django.views.generic import DetailView
+
 
 
 
@@ -170,10 +170,44 @@ def delete_type(request, type_id):
     return render(request, 'delete_type.html', {'type': type})
 
 
-# ------------- API-------------
 
+
+class EvenementDetailView(DetailView):
+    model = Evenement
+    template_name = "evenement/detail.html"  # Assure-toi de créer ce template
+    context_object_name = "evenement"
+    pk_url_kwarg = "id"  # Ou "pk" si tu utilises l'ID par défaut dans l'URL
+
+    def get_object(self):
+        return get_object_or_404(Evenement, id=self.kwargs.get(self.pk_url_kwarg))
+    
+
+# ------------- API-------------
 
 class EvenementViewSet(viewsets.ModelViewSet):
     queryset = Evenement.objects.all()
     serializer_class = EvenementSerializer
-    permission_classes = [IsAuthenticated]
+    lookup_field = "id"
+
+   
+    def retrieve(self, request, *args, **kwargs):
+        return super().retrieve(request, *args, **kwargs)
+
+    
+    @swagger_auto_schema(auto_schema=None)
+    def update(self, request, *args, **kwargs):
+        return super().update(request, *args, **kwargs)
+
+    
+    @swagger_auto_schema(auto_schema=None)  # ❌ masque `create()` dans Swagger
+    def create(self, request, *args, **kwargs):
+        return super().create(request, *args, **kwargs)
+
+    @swagger_auto_schema(auto_schema=None)
+    def partial_update(self, request, *args, **kwargs):
+        return super().partial_update(request, *args, **kwargs)
+
+    
+    @swagger_auto_schema(auto_schema=None)
+    def destroy(self, request, *args, **kwargs):
+        return super().destroy(request, *args, **kwargs)

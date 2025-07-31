@@ -63,6 +63,6 @@ class CategorieAdmin(admin.ModelAdmin):
 
 @admin.register(Episode)
 class EpisodeAdmin(admin.ModelAdmin):  
-    list_display = ("podcast", "title", "auteur", "audio_url", "fichier","created_at")  
+    list_display = ("podcast", "title", "auteur","image", "audio_url", "fichier","created_at")  
     search_fields = ("title", "auteur")
 
