@@ -121,6 +121,7 @@ class Slider(models.Model):
 class Video(models.Model):
     title = models.CharField(max_length=50, verbose_name=_("Titre de la vidéo"))
     category = models.CharField(max_length=200, default="", verbose_name=_("Catégorie"))
+    image = models.ImageField(_("Image de couverture"), upload_to="podcast/images/", blank=True)
     video_file = models.FileField(
         upload_to="videos/",
         verbose_name=_("Fichier vidéo"),
