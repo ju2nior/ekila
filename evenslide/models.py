@@ -5,6 +5,7 @@ from django.template.context_processors import media
 from django.core.exceptions import ValidationError
 from ckeditor.fields import RichTextField
 
+
 def media(instance, filename):
     return f"evenements/{instance.id}/{filename}"
 
@@ -56,5 +57,6 @@ class Evenement(models.Model):
 
 
 # =================
+
 
 

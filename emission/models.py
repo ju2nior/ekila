@@ -3,7 +3,10 @@ from django.utils.text import slugify
 from django.utils.translation import gettext_lazy as _
 from ckeditor.fields import RichTextField
 
+from evenslide.models import ulid
+
 class BaseEmissionModel(models.Model):
+    id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
     title = models.CharField(_("Titre de l'emission"), max_length=200, blank=False)
     image = models.ImageField(_("Image de l'emission"), upload_to="images/", blank=True)
     presentator = models.CharField(max_length=200, blank=True)
@@ -36,6 +39,7 @@ class Emission(BaseEmissionModel):
 
 
 class SubEmission(BaseEmissionModel):
+    id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
     emission = models.ForeignKey(
         Emission, on_delete=models.CASCADE, related_name="sousEmission"
     )
@@ -48,6 +52,7 @@ class SubEmission(BaseEmissionModel):
 
 
 class FridayEditorial(models.Model):
+    id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
     title = models.CharField(_("Titre de l'edito"), max_length=200)
     image = models.FileField(upload_to="images/")
     presentator = models.CharField(_("Nom du presentateur"), max_length=200, blank=True)
@@ -83,6 +88,7 @@ class FridayEditorial(models.Model):
 
 
 class Categorie(models.Model):
+        id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
         nom = models.CharField(_("Nom de la catégorie"), max_length=100, unique=True)
 
         class Meta:
@@ -93,6 +99,7 @@ class Categorie(models.Model):
             return self.nom
 
 class Poadcast(models.Model):
+    id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
     title = models.CharField(_("Titre du podcast"), max_length=200)
     intitule = models.CharField(_("Sous-titre ou résumé du podcast"), max_length=300, blank=True)
     auteur = models.CharField(_("Auteur du podcast"), max_length=100,  default="Inconnu")
@@ -120,9 +127,11 @@ class Poadcast(models.Model):
 
 
 class Episode(models.Model):
+    id = models.CharField(primary_key=True, max_length=30, default=ulid, editable=False, db_index=True)
     podcast = models.ForeignKey(Poadcast, related_name="episodes", on_delete=models.CASCADE)
     title = models.CharField(_("Titre de l'épisode"), max_length=200)
     auteur = models.CharField(_("Auteur"), max_length=150)
+    image = models.ImageField(_("Image de couverture"), upload_to="podcast/images/", blank=True)
     audio_url = models.URLField(_("URL de l'audio"), blank=True)
     fichier = models.FileField(_("Fichier audio/vidéo"), upload_to="poadcast/episodes/")
     created_at = models.DateTimeField(auto_now_add=True)

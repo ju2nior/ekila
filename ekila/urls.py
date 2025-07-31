@@ -30,7 +30,6 @@ urlpatterns = [
     path("api/", include("emission.api_urls")),
     path("api/tarif/", include("tarif.urls")),
     path('api/evenement/', include('evenslide.api_urls')),
-    path('api/evenement/evenements/', include('evenslide.api_urls')),
     path(
         "api/docs/swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
@@ -40,9 +39,9 @@ urlpatterns = [
         "api/docs/redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="redoc"
     ),
 
-    path("evenement/", include("evenslide.urls")),
-    path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+    # path("evenement/", include("evenslide.urls")),
+    # path('api/token/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
